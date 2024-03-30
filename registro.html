@@ -3,125 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Nutricional</title>
+    <title>Crear Cuenta Nueva</title>
     <style>
+        /* Estilo alternativo para el formulario de creación de cuenta */
         body {
-            background-color: #F0EAD6; /* Color de fondo suave pastel */
-            font-family: 'Arial', sans-serif; /* Cambia la fuente a Arial */
+            background-color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh; /* Hace que el cuerpo ocupe toda la altura de la ventana */
-            margin: 0; /* Elimina el margen predeterminado */
-            color: #333; /* Cambia el color del texto a un tono más oscuro */
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        header {
-            margin-top: 20px; /* Añade espacio en la parte superior */
-            text-align: center; /* Centra el texto en el encabezado */
+        .container {
+            background: linear-gradient(135deg, #ffdde1, #f8b8d9, #d5a5e1, #a9cce3);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            text-align: center;
         }
 
-        h1 {
-            font-size: 36px; /* Tamaño del texto del nombre */
-            margin-bottom: 10px; /* Añade espacio entre el nombre y las opciones de inicio de sesión */
+        .container h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
         }
 
-        img {
-            margin-top: 20px; /* Añade espacio entre el título y la imagen */
-            width: 200px; /* Ajusta el ancho de la imagen */
-            height: auto; /* Altura automática para mantener la proporción */
+        .container h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
         }
 
-        #opcionesInicioSesion {
-            text-align: center; /* Centra las opciones de inicio de sesión */
-            margin-top: 20px; /* Añade espacio entre la imagen y las opciones de inicio de sesión */
-            display: flex; /* Utiliza flexbox */
-            flex-direction: column; /* Alinea las opciones de inicio de sesión en una columna */
-            align-items: center; /* Centra horizontalmente las opciones de inicio de sesión */
+        .container label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+            text-align: left;
         }
 
-        .secondary-options {
-            margin-top: 10px; /* Añade espacio entre las opciones principales y secundarias */
-            display: flex; /* Utiliza flexbox */
-            flex-direction: row; /* Alinea las opciones secundarias en una fila */
+        .container input[type="text"],
+        .container input[type="email"],
+        .container input[type="password"] {
+            width: calc(100% - 24px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.7);
         }
 
-        .secondary-options button {
-            background-color: transparent; /* Fondo transparente */
-            border: none; /* Sin borde */
-            padding: 0; /* Sin relleno */
-            font-size: 16px; /* Tamaño del texto */
-            color: #4CAF50; /* Color del texto */
-            transition: color 0.3s ease; /* Transición suave del color del texto */
-            cursor: pointer; /* Cambia el cursor al pasar sobre los botones */
-            margin: 0 10px; /* Añade espacio entre los botones */
+        .container input[type="text"]:focus,
+        .container input[type="email"]:focus,
+        .container input[type="password"]:focus {
+            border-color: #3498db;
+            outline: none;
         }
 
-        .secondary-options button:hover {
-            color: #2E8B57; /* Cambia el color del texto al pasar el cursor sobre las opciones */
+        .container button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
-        button {
-            background-color: #fff; /* Color de fondo de los botones */
-            color: #4CAF50; /* Color del texto de los botones */
-            border: none; /* Sin borde */
-            padding: 10px 20px; /* Espaciado interno */
-            border-radius: 5px; /* Bordes redondeados */
-            margin: 5px; /* Margen entre los botones */
-            cursor: pointer; /* Cambia el cursor al pasar sobre los botones */
-            font-size: 16px; /* Tamaño del texto */
-            transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+        .container button:hover {
+            background-color: #2980b9;
         }
 
-        button:hover {
-            background-color: #e7e7e7; /* Color de fondo al pasar el cursor sobre los botones */
+        .container .checkbox {
+            margin-bottom: 20px;
+            text-align: left;
         }
 
-        a {
-            color: #4CAF50; /* Cambia el color del texto de los enlaces */
-            text-decoration: none; /* Sin subrayado */
-            margin-top: 10px; /* Margen superior */
-            display: block; /* Mostrar como bloque para ocupar todo el ancho */
-            transition: color 0.3s ease; /* Transición suave del color del texto */
+        .container .checkbox input {
+            margin-right: 8px;
+            cursor: pointer;
         }
 
-        a:hover {
-            color: #2E8B57; /* Cambia el color del texto al pasar el cursor sobre los enlaces */
-        }
-
-        footer {
-            margin-top: auto; /* Alinear el pie de página en la parte inferior */
-            margin-bottom: 20px; /* Añade espacio en la parte inferior */
-            text-align: center; /* Centra el texto del pie de página */
-            font-size: 14px; /* Tamaño del texto del pie de página */
+        .container .footer {
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>CALCULADORA NUTRICIONAL</h1>
-    </header>
+    <div class="container"> 
+        <h1>CALCULADORA-NUTRICIONAL</h1>
+        <h2>CREAR UNA CUENTA NUEVA</h2>
+        <form id="registroForm" onsubmit="registrarUsuario(event)"> 
+            <label for="nombreUsuario">Nombre de Usuario:</label> 
+            <input type="text" id="nombreUsuario" name="nombreUsuario" required>
+            <label for="correo">Correo Electrónico:</label> 
+            <input type="email" id="correo" name="correo" required>
+            <label for="contrasena">Contraseña:</label> 
+            <input type="password" id="contrasena" name="contrasena" required>
+            <label for="confirmarContrasena">Confirmar Contraseña:</label> 
+            <input type="password" id="confirmarContrasena" name="confirmarContrasena" required>
+            <div class="checkbox">
+                <input type="checkbox" onclick="mostrarContrasena()"> Mostrar contraseña <!-- Checkbox para mostrar/ocultar la contraseña -->
+            </div>
+            <button type="submit">Registrarse</button> 
+        </form> 
+    </div> 
 
-    <!-- Agregar la imagen en la parte superior -->
-    <img src="https://i.postimg.cc/7Lhkk6wk/large-transformed.png" alt="Imagen de la calculadora nutricional">
+    <!-- Incluir Firebase mediante etiquetas script --> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> 
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyBAyn2xWuA8kv0w0WcqFdkBMHMNf2IBq00",
+            authDomain: "calculadora-nutricional-ff61e.firebaseapp.com",
+            projectId: "calculadora-nutricional-ff61e"
+        };
 
-    <main>
-        <div class="container" id="opcionesInicioSesion">
-            <section>
-                <button onclick="location.href='registro.html'">Crear cuenta</button>
-                <button onclick="location.href='inicio_sesion.html'">Iniciar sesión</button>
-            </section>
-            <section class="secondary-options">
-                <button onclick="location.href='https://accounts.google.com/signup'">Crear cuenta con Gmail</button>
-                <button onclick="location.href='https://www.facebook.com/r.php'">Crear cuenta con Facebook</button>
-            </section>
-            <a href="#" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a>
-        </div>
-    </main>
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
 
-    <footer>
-        <p>&copy; 2024 Calculadora Nutricional. Todos los derechos reservados.</p>
-    </footer>
+        // Función para validar la contraseña
+        function validarContrasena(contrasena) {
+            // Verificar si la contraseña cumple con los requisitos deseados
+            // Por ejemplo, al menos una mayúscula, una minúscula, un número y longitud mínima
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            return regex.test(contrasena);
+        }
+
+        // Función para validar el formato del correo electrónico
+        function validarFormatoCorreo(correo) {
+            // Verificar si el correo electrónico tiene el formato deseado
+            var regex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo)\.(com|es|net)$/;
+            return regex.test(correo);
+        }
+
+        // Función para registrar un usuario
+        function registrarUsuario(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe automáticamente al presionar el botón "Registrarse".
+            // Obtener valores del formulario
+            var nombreUsuario = document.getElementById("nombreUsuario").value;
+            var correo = document.getElementById("correo").value;
+            var contrasena = document.getElementById("contrasena").value;
+            var confirmarContrasena = document.getElementById("confirmarContrasena").value;
+
+            // Verificar si las contraseñas coinciden
+            if (contrasena !== confirmarContrasena) {
+                alert("Las contraseñas no coinciden.");
+                return; // Detener el proceso de registro
+            }
+
+            // Verificar si la contraseña es válida
+            if (!validarContrasena(contrasena)) {
+                // Mostrar mensaje de alerta si la contraseña no cumple con los requisitos
+                alert("La contraseña debe contener al menos una mayúscula, una minúscula, un número y tener una longitud mínima de 8 caracteres.");
+                return; // Detener el proceso de registro
+            }
+
+            // Verificar si el correo electrónico tiene el formato deseado
+            if (!validarFormatoCorreo(correo)) {
+                // Mostrar mensaje de alerta si el formato del correo electrónico no es válido
+                alert("El correo electrónico debe tener el formato correcto: @gmail.com, @hotmail.com, @yahoo.com, etc.");
+                return; // Detener el proceso de registro
+            }
+
+            // Crear cuenta de usuario con correo y contraseña
+            firebase.auth().createUserWithEmailAndPassword(correo, contrasena)
+            .then((userCredential) => { 
+              // Usuario registrado correctamente
+                var user = userCredential.user;
+                console.log("Usuario registrado:", user);
+                alert("¡Registro exitoso!");
+            })
+            .catch((error) => {
+                // Error al registrar usuario
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error("Error:", errorMessage);
+                alert("Error al registrar usuario: " + errorMessage);
+            });
+        }
+
+        // Función para recuperar contraseña
+        function recuperarContrasena() {
+            var correoRecuperacion = prompt("Ingresa tu correo electrónico para recuperar tu contraseña:");
+            
+            if (correoRecuperacion) {
+                firebase.auth().sendPasswordResetEmail(correoRecuperacion)
+                .then(() => {
+                    // Email de recuperación enviado
+                    alert("Se ha enviado un correo electrónico de recuperación de contraseña a " + correoRecuperacion);
+                })
+                .catch((error) => {
+                    // Error al enviar email de recuperación
+                    var errorMessage = "Error al enviar correo electrónico de recuperación. Por favor, intenta nuevamente.";
+                    console.error("Error:", error);
+                    alert(errorMessage);
+                });
+            }
+        }
+
+        // Función para mostrar/ocultar la contraseña de registro
+        function mostrarContrasena() {
+            var contrasenaInput = document.getElementById("contrasena");
+            var confirmarContrasenaInput = document.getElementById("confirmarContrasena");
+            if (contrasenaInput.type === "password") {
+                contrasenaInput.type = "text";
+                confirmarContrasenaInput.type = "text";
+            } else {
+                contrasenaInput.type = "password";
+                confirmarContrasenaInput.type = "password";
+            }
+        }
+    </script>
 </body>
-  </html>
+</html>
