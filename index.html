@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Nutricional</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            background-color: #4CAF50; /* Color verde deportivo */
+            background-color: #F0EAD6; /* Color de fondo suave pastel */
             font-family: 'Arial', sans-serif; /* Cambia la fuente a Arial */
             display: flex;
             flex-direction: column;
@@ -15,18 +14,12 @@
             justify-content: center;
             height: 100vh; /* Hace que el cuerpo ocupe toda la altura de la ventana */
             margin: 0; /* Elimina el margen predeterminado */
-            background-image: ('https://www.dropbox.com/scl/fi/3r9vm7b8jzrl8zxop8kte/large-transformed.png?rlkey=wkl83m833ktur9f9bzw9pmeye&dl=0'); /* Agrega la imagen de fondo */
-            background-size: cover; /* Cubre todo el fondo */
-            background-repeat: no-repeat; /* No se repite la imagen */
-            background-position: center; /* Centra la imagen */
-            position: relative; /* Establece la posición relativa para que los elementos floten sobre el fondo */
+            color: #333; /* Cambia el color del texto a un tono más oscuro */
         }
 
         header {
-            margin-bottom: 20px; /* Añade espacio entre el encabezado y el contenido */
+            margin-top: 20px; /* Añade espacio en la parte superior */
             text-align: center; /* Centra el texto en el encabezado */
-            color: #fff; /* Color del texto */
-            z-index: 1; /* Asegura que el encabezado esté sobre el fondo */
         }
 
         h1 {
@@ -34,9 +27,39 @@
             margin-bottom: 10px; /* Añade espacio entre el nombre y las opciones de inicio de sesión */
         }
 
+        img {
+            margin-top: 20px; /* Añade espacio entre el título y la imagen */
+            width: 200px; /* Ajusta el ancho de la imagen */
+            height: auto; /* Altura automática para mantener la proporción */
+        }
+
         #opcionesInicioSesion {
             text-align: center; /* Centra las opciones de inicio de sesión */
-            z-index: 1; /* Asegura que las opciones estén sobre el fondo */
+            margin-top: 20px; /* Añade espacio entre la imagen y las opciones de inicio de sesión */
+            display: flex; /* Utiliza flexbox */
+            flex-direction: column; /* Alinea las opciones de inicio de sesión en una columna */
+            align-items: center; /* Centra horizontalmente las opciones de inicio de sesión */
+        }
+
+        .secondary-options {
+            margin-top: 10px; /* Añade espacio entre las opciones principales y secundarias */
+            display: flex; /* Utiliza flexbox */
+            flex-direction: row; /* Alinea las opciones secundarias en una fila */
+        }
+
+        .secondary-options button {
+            background-color: transparent; /* Fondo transparente */
+            border: none; /* Sin borde */
+            padding: 0; /* Sin relleno */
+            font-size: 16px; /* Tamaño del texto */
+            color: #4CAF50; /* Color del texto */
+            transition: color 0.3s ease; /* Transición suave del color del texto */
+            cursor: pointer; /* Cambia el cursor al pasar sobre los botones */
+            margin: 0 10px; /* Añade espacio entre los botones */
+        }
+
+        .secondary-options button:hover {
+            color: #2E8B57; /* Cambia el color del texto al pasar el cursor sobre las opciones */
         }
 
         button {
@@ -56,7 +79,7 @@
         }
 
         a {
-            color: #fff; /* Color del texto de los enlaces */
+            color: #4CAF50; /* Cambia el color del texto de los enlaces */
             text-decoration: none; /* Sin subrayado */
             margin-top: 10px; /* Margen superior */
             display: block; /* Mostrar como bloque para ocupar todo el ancho */
@@ -64,14 +87,14 @@
         }
 
         a:hover {
-            color: #e7e7e7; /* Color del texto al pasar el cursor sobre los enlaces */
+            color: #2E8B57; /* Cambia el color del texto al pasar el cursor sobre los enlaces */
         }
 
         footer {
-            margin-top: 20px; /* Margen superior */
-            color: #fff; /* Color del texto del pie de página */
+            margin-top: auto; /* Alinear el pie de página en la parte inferior */
+            margin-bottom: 20px; /* Añade espacio en la parte inferior */
+            text-align: center; /* Centra el texto del pie de página */
             font-size: 14px; /* Tamaño del texto del pie de página */
-            z-index: 1; /* Asegura que el pie de página esté sobre el fondo */
         }
     </style>
 </head>
@@ -80,13 +103,20 @@
         <h1>CALCULADORA NUTRICIONAL</h1>
     </header>
 
+    <!-- Agregar la imagen en la parte superior -->
+    <img src="https://i.postimg.cc/7Lhkk6wk/large-transformed.png" alt="Imagen de la calculadora nutricional">
+
     <main>
-        <div class="container">
-            <section id="opcionesInicioSesion">
+        <div class="container" id="opcionesInicioSesion">
+            <section>
                 <button onclick="location.href='registro.html'">Crear cuenta</button>
                 <button onclick="location.href='inicio_sesion.html'">Iniciar sesión</button>
-                <a href="#" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a>
             </section>
+            <section class="secondary-options">
+                <button onclick="location.href='https://accounts.google.com/signup'">Crear cuenta con Gmail</button>
+                <button onclick="location.href='https://www.facebook.com/r.php'">Crear cuenta con Facebook</button>
+            </section>
+            <a href="#" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a>
         </div>
     </main>
 
