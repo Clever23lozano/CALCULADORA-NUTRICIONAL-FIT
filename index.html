@@ -150,33 +150,25 @@
 
     // Función para iniciar sesión con Facebook
     function iniciarSesionFacebook() {
-    function iniciarSesionFacebook() {
-    console.log("Intentando iniciar sesión con Facebook...");
-    var provider = new firebase.auth.FacebookAuthProvider(); 
-    firebase.auth().signInWithPopup(provider)
-        .then((result) => {
-            // Usuario inició sesión correctamente
-            var user = result.user;
-            console.log("Usuario inició sesión con Facebook:", user);
-            // Mostrar mensaje de éxito
-            alert("Inicio de sesión con Facebook exitoso");
-            // Redireccionar a la página de bienvenida después de que el usuario vea el mensaje
-            window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/bienvenida.html";
-        })
-        .catch((error) => {
-            // Error al iniciar sesión con Facebook
-            var errorMessage = error.message;
-            console.error("Error al iniciar sesión con Facebook:", errorMessage);
-            alert("Error al iniciar sesión con Facebook: " + errorMessage);
+        console.log("Intentando iniciar sesión con Facebook...");
+        var provider = new firebase.auth.FacebookAuthProvider(); 
+        firebase.auth().signInWithPopup(provider)
+            .then((result) => {
+                // Usuario inició sesión correctamente
+                var user = result.user;
+                console.log("Usuario inició sesión con Facebook:", user);
+                // Mostrar mensaje de éxito
+                alert("Inicio de sesión con Facebook exitoso");
+                // Redireccionar a la página de bienvenida después de que el usuario vea el mensaje
+                window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/bienvenida.html";
+            })
+            .catch((error) => {
+                // Error al iniciar sesión con Facebook
+                var errorMessage = error.message;
+                console.error("Error al iniciar sesión con Facebook:", errorMessage);
+                alert("Error al iniciar sesión con Facebook: " + errorMessage);
+            });
     }
-        })
-        .catch((error) => {
-            // Error al iniciar sesión con Facebook
-            var errorMessage = error.message;
-            console.error("Error al iniciar sesión con Facebook:", errorMessage);
-            alert("Error al iniciar sesión con Facebook: " + errorMessage);
-        });
-                  }
 
     // Función para abrir el formulario de recuperación de contraseña
     function recuperarContrasena() {
