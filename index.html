@@ -114,7 +114,8 @@
             </section>
             <section class="secondary-options">
                 <button onclick="Google()">Iniciar sesión con Google</button>
-                <button onclick="location.href='https://www.facebook.com/r.php'">Crear cuenta con Facebook</button>
+                <!-- Agregar la función para crear cuenta con Facebook -->
+                <button onclick="crearCuentaFacebook()">Crear cuenta con Facebook</button>
             </section>
             <a href="#" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a>
         </div>
@@ -123,6 +124,10 @@
     <footer>
         <p>&copy; 2024 Calculadora Nutricional. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- Facebook SDK -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v19.0&appId=7424193067696391" nonce="VD5aT0FQ"></script>
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -158,6 +163,24 @@
                         console.error("Error al iniciar sesión con Google:", errorMessage);
                         alert("Error al iniciar sesión con Google: " + errorMessage);
                     });
+            }
+
+            // Función para crear cuenta con Facebook
+            function crearCuentaFacebook() {
+                // Abrir el diálogo de inicio de sesión de Facebook
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        // Usuario ha iniciado sesión con Facebook
+                        console.log("Usuario ha iniciado sesión con Facebook:", response);
+                        alert("¡Inicio de sesión con Facebook exitoso!");
+                        // Redireccionar a la página de bienvenida
+                        window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/";
+                    } else {
+                        // Usuario ha cancelado el inicio de sesión con Facebook
+                        console.log("Inicio de sesión con Facebook cancelado por el usuario.");
+                        alert("Inicio de sesión con Facebook cancelado por el usuario.");
+                    }
+                }, { scope: 'email' });
             }
 
             // Función para abrir el formulario de recuperación de contraseña
