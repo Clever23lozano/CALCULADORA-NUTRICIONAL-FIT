@@ -4,6 +4,7 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Calculadora Nutricional</title> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             background-color: #F0EAD6; /* Color de fondo suave pastel */
@@ -107,8 +108,11 @@
     <div class="container" id="opcionesInicioSesion"> 
         <section> <button onclick="location.href='registro.html'">Crear cuenta</button> <button onclick="location.href='inicio_sesion.html'">Iniciar sesión</button> 
         </section> 
-        <section class="secondary-options"> <button onclick="Google()">Iniciar sesión con Google</button> <button onclick="iniciarSesionFacebook()">Iniciar sesión con Facebook</button> 
-        </section> <a href="#" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a> 
+        <section class="secondary-options"> 
+            <button onclick="Google()"><i class="fab fa-google"></i> Iniciar sesión con Google</button> 
+            <button onclick="iniciarSesionFacebook()"><i class="fab fa-facebook"></i> Iniciar sesión con Facebook</button> 
+        </section> 
+        <a href="#" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a> 
     </div> 
 </main> 
 <footer> 
