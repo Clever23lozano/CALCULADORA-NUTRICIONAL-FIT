@@ -1,1 +1,78 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #F0EAD6; /* Fondo suave pastel */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .background {
+            background-color: #ADD8E6; /* Fondo azul claro pastel */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .container {
+            background-color: #FFFACD; /* Fondo amarillo pastel */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+        h2 {
+            color: #666;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #FF6F61; /* Fondo melocotón pastel */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #FF4500; /* Fondo naranja pastel al pasar el cursor */
+        }
+        .lower-section {
+            background: linear-gradient(135deg, #90EE90, #FFB6C1, #ADD8E6); /* Fondo tricolor primaveral */
+            border-radius: 10px;
+            margin-top: 20px;
+            padding: 20px;
+            color: #333; /* Color de texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1>¡Hola, Usuario!</h1>
+        <h2>Bienvenidos a tu aplicación web: CALCULADORA-NUTRICIONAL</h2>
+        <h2>"Dietas personalizadas al instante"</h2>
+        <button onclick="location.href='inicio_sesion.html'">¡Empecemos!</button>
+        <div class="lower-section">
+            <p>Explora nuestras funciones y descubre cómo podemos ayudarte a alcanzar tus metas de salud y nutrición.</p>
+        </div>
+    </div>
+</body>
+</html>
