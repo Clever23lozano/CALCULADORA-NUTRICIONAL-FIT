@@ -131,7 +131,7 @@
 
     // Función para iniciar sesión con Google
     function Google() {
-        var provider = new firebase.auth.GoogleAuthProvider; firebase.auth().signInWithPopup(provider)
+        var provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider)
             .then((result) => {
                 // Usuario inició sesión correctamente
                 var user = result.user;
