@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear cuenta con Google</title>
+    <!-- Agregar Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        button {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #357ae8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crear cuenta con Google</h1>
+        <button onclick="signInWithGoogle()">Crear cuenta</button>
+    </div>
+
+    <script>
+        // Configurar Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyBAyn2xWuA8kv0w0WcqFdkBMHMNf2IBq00",
+            authDomain: "calculadora-nutricional-ff61e.firebaseapp.com",
+            projectId: "calculadora-nutricional-ff61e",
+            storageBucket: "calculadora-nutricional-ff61e.appspot.com",
+            messagingSenderId: "60353169945",
+            appId: "1:60353169945:web:ce1679f2b57d0fded97888"
+        };
+        
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Función para iniciar sesión con Google
+        function signInWithGoogle() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    // Se autenticó correctamente
+                    var user = result.user;
+                    console.log("Usuario autenticado:", user);
+                    alert("¡Cuenta creada con Google!");
+                    window.location.href = "pagina_de_inicio.html"; // Redireccionar a la página de inicio
+                })
+                .catch((error) => {
+                    // Error al autenticar con Google
+                    var errorMessage = error.message;
+                    console.error("Error:", errorMessage);
+                    alert("Error al crear cuenta con Google: " + errorMessage);
+                });
+        }
+    </script>
+</body>
+</html>
