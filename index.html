@@ -149,9 +149,10 @@
     }
 
     // Función para iniciar sesión con Facebook
-    function iniciarSesionFacebook() {
-        var provider = new firebase.auth.FacebookAuthProvider(); 
-        firebase.auth().signInWithPopup(provider)
+function iniciarSesionFacebook() {
+    var provider = new firebase.auth.FacebookAuthProvider(); 
+    firebase.auth().signInWithRedirect(provider);
+}
             .then((result) => {
                 // Usuario inició sesión correctamente
                 var user = result.user;
