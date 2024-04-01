@@ -130,5 +130,14 @@
             benefit.classList.toggle('active');
         }
     </script>
+    <script>
+    // Verificar el estado de autenticación al cargar la página
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+            // Si el usuario no ha iniciado sesión, redirigir a la página de inicio de sesión
+            window.location.href = "inicio_sesion.html";
+        }
+    });
+    </script>
 </body>
                 </html>
