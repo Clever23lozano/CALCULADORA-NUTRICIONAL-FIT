@@ -139,18 +139,21 @@
         firebase.initializeApp(firebaseConfig);
 
         // Función para mostrar/ocultar los beneficios
-        function toggleBenefit(id) {
-            const benefit = document.getElementById(id);
-            benefit.classList.toggle('active');
-        }
+    function toggleBenefit(id) {
+        const benefit = document.getElementById(id);
+        benefit.classList.toggle('active');
+    }
 
-        // Verificar el estado de autenticación al cargar la página
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (!user) {
-                // Si el usuario no ha iniciado sesión, redirigir a la página de inicio de sesión
-                window.location.href = "inicio_sesion.html";
-            }
-        });
+    // Verificar el estado de autenticación al cargar la página
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // Si el usuario está autenticado, no hacer nada
+            console.log("Usuario autenticado:", user);
+        } else {
+            // Si el usuario no está autenticado, redirigir a la página de inicio de sesión
+            window.location.href = "inicio_sesion.html";
+        }
+    });
     </script>
 </body>
 </html>
