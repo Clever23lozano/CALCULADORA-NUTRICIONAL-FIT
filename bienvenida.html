@@ -6,8 +6,7 @@
     <title>Bienvenida</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', cursive;
-            background-color: #F0EAD6; /* Fondo suave pastel */
+            font-family: 'Arial', sans-serif; /* Nueva fuente */
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,7 +15,8 @@
             height: 100vh;
         }
         .background {
-            background-color: #ADD8E6; /* Fondo azul claro pastel */
+            background-image: url('https://i.postimg.cc/Vs4j1jFd/istockphoto-1524823226-1024x1024-transformed.jpg'); /* Fondo de imagen */
+            background-size: cover;
             position: fixed;
             top: 0;
             left: 0;
@@ -25,21 +25,35 @@
             z-index: -1;
         }
         .container {
-            background-color: #FFFACD; /* Fondo amarillo pastel */
+            background-color: rgba(255, 255, 255, 0.7); /* Fondo semi-transparente */
             border-radius: 10px;
             padding: 30px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        .title-box {
+            background-color: #FF6F61; /* Fondo melocotón pastel */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #fff;
+            margin: 0;
         }
         h1 {
-            color: #333;
-            margin-bottom: 10px;
             font-size: 36px;
+            margin-bottom: 10px;
         }
         h2 {
-            color: #666;
             font-size: 24px;
-            margin-bottom: 20px;
+        }
+        p {
+            color: #333; /* Color de texto */
+            margin-bottom: 10px;
+            font-size: 16px; /* Tamaño de letra aumentado */
         }
         button {
             padding: 10px 20px;
@@ -50,29 +64,71 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 20px;
         }
         button:hover {
             background-color: #FF4500; /* Fondo naranja pastel al pasar el cursor */
         }
-        .lower-section {
-            background: linear-gradient(135deg, #90EE90, #FFB6C1, #ADD8E6); /* Fondo tricolor primaveral */
-            border-radius: 10px;
+        .benefit {
+            display: none;
             margin-top: 20px;
-            padding: 20px;
-            color: #333; /* Color de texto */
+        }
+        .benefit.active {
+            display: block;
+        }
+        .benefit img {
+            max-width: 100%;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="background"></div>
     <div class="container">
-        <h1>¡Hola, Usuario!</h1>
-        <h2>Bienvenidos a tu aplicación web: CALCULADORA-NUTRICIONAL</h2>
-        <h2>"Dietas personalizadas al instante"</h2>
-        <button onclick="location.href='inicio_sesion.html'">¡Empecemos!</button>
-        <div class="lower-section">
-            <p>Explora nuestras funciones y descubre cómo podemos ayudarte a alcanzar tus metas de salud y nutrición.</p>
+        <div class="title-box">
+            <h1>¡Hola, Usuario!</h1>
+            <h2>Bienvenidos a tu aplicación web: CALCULADORA-NUTRICIONAL</h2>
+            <h2>"Dietas personalizadas al instante"</h2>
         </div>
+        <button onclick="toggleBenefit('caloric')">Calcula tu gasto calórico total</button>
+        <div class="benefit" id="caloric">
+            <p>Obtén una estimación precisa de tus necesidades calóricas según tus objetivos.</p>
+            <img src="https://i.postimg.cc/sDZMM7rj/istockphoto-1468540831-1024x1024-transformed.jpg" alt="Ilustración del cálculo de gasto calórico">
+        </div>
+        <button onclick="toggleBenefit('macronutrients')">Distribución de macronutrientes</button>
+        <div class="benefit" id="macronutrients">
+            <p>Conoce la proporción óptima de proteínas, carbohidratos y grasas para tus objetivos.</p>
+            <img src="https://i.postimg.cc/0ynKvxvD/istockphoto-1447366619-1024x1024-transformed.jpg" alt="Ilustración de distribución de macronutrientes">
+        </div>
+        <!-- Repite lo mismo para los demás beneficios -->
+        <button onclick="toggleBenefit('recipes')">Acceso a un extenso libro de recetas</button>
+        <div class="benefit" id="recipes">
+            <p>Encuentra inspiración culinaria para cada comida, adaptada a tus preferencias y necesidades.</p>
+            <img src="https://i.postimg.cc/Y9GvQWWz/istockphoto-591814946-1024x1024-transformed.jpg" alt="Ilustración del libro de recetas">
+        </div>
+        <button onclick="toggleBenefit('updates')">Actualizaciones periódicas</button>
+        <div class="benefit" id="updates">
+            <p>Benefíciate de nuevas opciones y funcionalidades para mejorar tu experiencia.</p>
+            <img src="https://i.postimg.cc/W3g226ZC/istockphoto-1425576452-1024x1024-transformed.jpg" alt="Ilustración de actualizaciones periódicas">
+        </div>
+        <button onclick="toggleBenefit('progress')">Seguimiento de progreso</button>
+        <div class="benefit" id="progress">
+            <p>Registra tus medidas, peso y otros indicadores para mantener un seguimiento de tu evolución.</p>
+            <img src="https://i.postimg.cc/nhFYB3cK/istockphoto-1130785719-1024x1024-transformed.jpg" alt="Ilustración del seguimiento de progreso">
+        </div>
+        <button onclick="toggleBenefit('ai')">Buscador inteligente</button>
+        <div class="benefit" id="ai">
+            <p>Encuentra recetas específicas o alimentos y ajusta automáticamente las porciones.</p>
+            <img src="https://i.postimg.cc/6qSJn8Cn/istockphoto-1385970253-1024x1024-transformed.jpg" alt="Ilustración del buscador inteligente">
+        </div>
+        <button onclick="location.href='inicio_sesion.html'">¡Empecemos!</button>
     </div>
+
+    <script>
+        function toggleBenefit(id) {
+            const benefit = document.getElementById(id);
+            benefit.classList.toggle('active');
+        }
+    </script>
 </body>
-</html>
+                </html>
