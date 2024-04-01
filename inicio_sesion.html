@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+<html lang="es"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Iniciar Sesión</title> 
     <style>
         /* Estilos para el contenido */
         .container {
@@ -90,95 +90,90 @@
             color: red; /* Color del texto */
             margin-top: 10px; /* Margen superior */
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <form id="inicioSesionForm">
+    </style> 
+</head> 
+<body> 
+    <div class="container"> 
+        <form id="inicioSesionForm"> 
             <h1>CALCULADORA-NUTRICIONAL</h1> <!-- Título dentro del formulario -->
             <h1>Iniciar Sesión</h1> <!-- Título para el inicio de sesión -->
-            <label for="correoInicio">Correo Electrónico:</label>
+            <label for="correoInicio">Correo Electrónico:</label> 
             <input type="email" id="correoInicio" name="correoInicio" required>
-            <br>
-            <label for="contrasenaInicio">Contraseña:</label>
+            <br> 
+            <label for="contrasenaInicio">Contraseña:</label> 
             <input type="password" id="contrasenaInicio" name="contrasenaInicio" required>
             <input type="checkbox" onclick="mostrarContrasenaInicio()"> Mostrar contraseña <!-- Checkbox para mostrar/ocultar la contraseña -->
-            <br>
-            <button type="button" onclick="iniciarSesion()">Iniciar Sesión</button>
-            <a href="#" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a>
+            <br> 
+            <button type="button" onclick="iniciarSesion()">Iniciar Sesión</button> 
+            <a href="#" onclick="recuperarContrasena()">¿Olvidaste tu contraseña?</a> 
             <div id="error-message" class="error-message"></div> <!-- Mensaje de error -->
-        </form>
-        <p class="footer">© 2024 Calculadora Nutricional. Todos los derechos reservados.</p>
-    </div>
+        </form> 
+    <p class="footer">© 2024 Calculadora Nutricional. Todos los derechos reservados.</p> 
+</div> 
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script>
-        // Configuración de Firebase
-        var firebaseConfig = {
-            apiKey: "AIzaSyBAyn2xWuA8kv0w0WcqFdkBMHMNf2IBq00",
-            authDomain: "calculadora-nutricional-ff61e.firebaseapp.com",
-            projectId: "calculadora-nutricional-ff61e",
-            storageBucket: "calculadora-nutricional-ff61e.appspot.com",
-            messagingSenderId: "60353169945",
-            appId: "1:60353169945:web:ce1679f2b57d0fded97888"
-        };
-        // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script> 
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> 
+<script>
+    // Configuración de Firebase
+    var firebaseConfig = {
+        apiKey: "AIzaSyBAyn2xWuA8kv0w0WcqFdkBMHMNf2IBq00",
+        authDomain: "calculadora-nutricional-ff61e.firebaseapp.com",
+        projectId: "calculadora-nutricional-ff61e",
+        storageBucket: "calculadora-nutricional-ff61e.appspot.com",
+        messagingSenderId: "60353169945",
+        appId: "1:60353169945:web:ce1679f2b57d0fded97888"
+    };
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
 
-        // Función para iniciar sesión
-        function iniciarSesion
-        () {
-            var correo = document.getElementById("correoInicio").value;
-            var contrasena = document.getElementById("contrasenaInicio").value;
+    // Función para iniciar sesión
+    function iniciarSesion() {
+        var correo = document.getElementById("correoInicio").value;
+        var contrasena = document.getElementById("contrasenaInicio").value;
 
-            firebase.auth().signInWithEmailAndPassword(correo, contrasena)
-                .then((userCredential) => {
-                    // Usuario inició sesión correctamente
-                    var user = userCredential.user;
-                    console.log("Usuario inició sesión:", user);
+        firebase.auth().signInWithEmailAndPassword(correo, contrasena)
+            .then((userCredential) => {
+                // Usuario inició sesión correctamente
+                var user = userCredential.user;
+                console.log("Usuario inició sesión:", user);
+                alert("¡Inicio de sesión exitoso!");
+                // Redireccionar a la página de bienvenida
+                window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/";
+            })
+            .catch((error) => {
+                // Error al iniciar sesión
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                
+                document.getElementById("error-message").textContent = "Correo electrónico o contraseña incorrecta. Revisa y vuelve a intentarlo."; // Mostrar mensaje de error
+            });
+    }
 
-                    // Obtener nombre de usuario
-                    var userName = user.displayName;
-
-                    // Redirigir a la página de bienvenida con el nombre de usuario en la URL
-                    window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/bienvenida.html" + encodeURIComponent(userName);
+    // Función para abrir el formulario de recuperación de contraseña
+    function recuperarContrasena() {
+        var email = prompt("Ingresa tu correo electrónico para recuperar tu contraseña:");if (email) {
+            firebase.auth().sendPasswordResetEmail(email)
+                .then(() => {
+                    alert("Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.");
                 })
                 .catch((error) => {
-                    // Error al iniciar sesión
-                    var errorCode = error.code;
                     var errorMessage = error.message;
-
-                    document.getElementById("error-message").textContent = "Correo electrónico o contraseña incorrecta. Revisa y vuelve a intentarlo."; // Mostrar mensaje de error
+                    console.error("Error al enviar correo electrónico de recuperación:", errorMessage);
+                    alert("Error al enviar correo electrónico de recuperación: " + errorMessage);
                 });
         }
+    }
 
-        // Función para abrir el formulario de recuperación de contraseña
-        function recuperarContrasena() {
-            var email = prompt("Ingresa tu correo electrónico para recuperar tu contraseña:");
-            if (email) {
-                firebase.auth().sendPasswordResetEmail(email)
-                    .then(() => {
-                        alert("Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.");
-                    })
-                    .catch((error) => {
-                        var errorMessage = error.message;
-                        console.error("Error al enviar correo electrónico de recuperación:", errorMessage);
-                        alert("Error al enviar correo electrónico de recuperación: " + errorMessage);
-                    });
-            }
+    // Función para mostrar u ocultar la contraseña
+    function mostrarContrasenaInicio() {
+        var contrasenaInput = document.getElementById("contrasenaInicio");
+        if (contrasenaInput.type === "password") {
+            contrasenaInput.type = "text";
+        } else {
+            contrasenaInput.type = "password";
         }
-
-        // Función para mostrar u ocultar la contraseña
-        function mostrarContrasenaInicio() {
-            var contrasenaInput = document.getElementById("contrasenaInicio");
-            if (contrasenaInput.type === "password") {
-                contrasenaInput.type = "text";
-            } else {
-                contrasenaInput.type = "password";
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
