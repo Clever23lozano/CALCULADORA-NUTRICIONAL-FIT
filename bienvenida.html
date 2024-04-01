@@ -124,24 +124,33 @@
         <button onclick="location.href='inicio_sesion.html'">¡Empecemos!</button>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script>
+        // Inicializar Firebase
+        var firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_AUTH_DOMAIN",
+            projectId: "TU_PROJECT_ID",
+            storageBucket: "TU_STORAGE_BUCKET",
+            messagingSenderId: "TU_MESSAGING_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Función para mostrar/ocultar los beneficios
         function toggleBenefit(id) {
             const benefit = document.getElementById(id);
             benefit.classList.toggle('active');
         }
+
+        // Verificar el estado de autenticación al cargar la página
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                // Si el usuario no ha iniciado sesión, redirigir a la página de inicio de sesión
+                window.location.href = "inicio_sesion.html";
+            }
+        });
     </script>
-    <script>
-    // Verificar el estado de autenticación al cargar la página
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (!user) {
-            // Si el usuario no ha iniciado sesión, redirigir a la página de inicio de sesión
-            window.location.href = "inicio_sesion.html";
-        }
-    });
-    </script>
-    <!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script> 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> 
-<script>
 </body>
-                </html>
+</html>
