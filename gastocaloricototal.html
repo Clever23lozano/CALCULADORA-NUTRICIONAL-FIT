@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo del Gasto Energético</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Alineación de contenido al centro */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        button {
+            background-color: green;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(255, 255, 0, 0.8); /* Amarillo platano con opacidad */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 20% auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content h2 {
+            color: #333;
+        }
+
+        .modal-content p {
+            color: #666;
+        }
+
+        .modal-content button {
+            background-color: green;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-content button:hover {
+            background-color: darkgreen;
+        }
+
+        input[type="radio"] {
+            transform: scale(1.5);
+            margin-right: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-container {
+            display: inline-block;
+            text-align: left;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CÁLCULO DEL GASTO ENERGÉTICO</h1>
+        <p><strong>Descripción del gasto energético:</strong></p>
+        <p>El gasto energético se refiere a la cantidad de energía que una persona utiliza en un determinado período de tiempo para llevar a cabo diversas actividades, tanto físicas como metabólicas. Este proceso es vital para mantener las funciones corporales básicas, como la respiración, la circulación sanguínea, la digestión y la regulación de la temperatura corporal. El gasto energético se compone de varias partes, incluyendo el metabolismo basal (energía requerida para mantener las funciones vitales en reposo), la termogénesis inducida por la dieta (energía utilizada para digerir y absorber los alimentos) y la energía gastada durante la actividad física. Factores como el sexo, la edad, el peso, la altura y el nivel de actividad física influyen en el gasto energético total de una persona.</p>
+        <button onclick="iniciar()">INICIAR</button>
+
+        <div id="preguntas" style="display: none;">
+            <!-- Aquí se mostrarán las preguntas -->
+            <div id="pregunta1" style="text-align: center;">
+    <h2 style="font-size: 18px;">PRIMERA PREGUNTA:</h2>
+    <h2 style="font-size: 25px;">¿CUÁL ES TU SEXO?</h2>
+    <div style="display: flex; justify-content: space-around;">
+        <div style="flex-basis: 45%;">
+            <input type="radio" id="hombre" name="sexo" value="hombre">
+            <label for="hombre" style="font-size: 20px;">HOMBRE</label><br>
+        </div>
+        <div style="flex-basis: 45%;">
+            <input type="radio" id="mujer" name="sexo" value="mujer">
+            <label for="mujer" style="font-size: 20px;">MUJER</label><br>
+        </div>
+    </div>
+    <button onclick="siguientePregunta1()">CONTINUAR</button>
+</div>
+
+            <div id="pregunta2" style="display: none; text-align: center;">
+                <h2 style="font-size: 18px;">SEGUNDA PREGUNTA:</h2>
+                <h2 style="font-size: 25px;">¿CUÁL ES TU PESO CORPORAL ACTUAL?</h2>
+                <input type="number" id="peso" placeholder="Ingresa tu peso">
+                <input type="radio" id="kg" name="unidadPeso" value="kg">
+                <label for="kg">kg</label>
+                <input type="radio" id="libras" name="unidadPeso" value="libras">
+                <label for="libras">Libras</label>
+                <button onclick="siguientePregunta2()">CONTINUAR</button>
+            </div>
+
+            <div id="pregunta3" style="display: none; text-align: center;">
+                <h2 style="font-size: 18px;">TERCERA PREGUNTA:</h2>
+                <h2 style="font-size: 25px;">¿CUÁL ES TU ESTATURA?</h2>
+                <input type="number" id="estatura" placeholder="Ingresa tu estatura">
+                <input type="radio" id="cm" name="unidadEstatura" value="cm">
+                <label for="cm">cm</label>
+                <input type="radio" id="pulgadas" name="unidadEstatura" value="pulgadas">
+                <label for="pulgadas">Pulgadas</label>
+                <button onclick="siguientePregunta3()">CONTINUAR</button>
+            </div>
+
+            <div id="pregunta4" style="display: none; text-align: center;">
+                <h2 style="font-size: 18px;">CUARTA PREGUNTA:</h2>
+                <h2 style="font-size: 25px;">¿CUÁNTOS AÑOS TIENES?</h2>
+                <input type="number" id="edad" placeholder="Ingresa tu edad">
+                <button onclick="siguientePregunta4()">CONTINUAR</button>
+            </div>
+
+            <div id="pregunta5" style="display: none; text-align: center;">
+                <h2 style="font-size: 18px;">QUINTA PREGUNTA:</h2>
+                <h2 style="font-size: 25px;">¿CUÁL ES TU NIVEL DE ACTIVIDAD FÍSICA?</h2>
+                <div class="option-container">
+                    <input type="radio" id="sedentario" name="nivelActividad" value="sedentario">
+                    <label for="sedentario"><strong>SEDENTARIO:</strong> No haces actividad física o muy poca. Trabajas en una oficina y no haces ejercicio regularmente.</label><br>
+                </div>
+                <div class="option-container">
+                    <input type="radio" id="ligero" name="nivelActividad" value="ligero">
+                    <label for="ligero"><strong>LIGERO:</strong> Haces ejercicio ligero de 1 a 3 días a la semana. Caminas, haces tareas domésticas o trabajas en una oficina pero haces ejercicio regularmente.</label><br>
+                </div>
+                <div class="option-container">
+                    <input type="radio" id="moderado" name="nivelActividad" value="moderado">
+                    <label for="moderado"><strong>MODERADO:</strong> Haces ejercicio moderado de 3 a 5 días a la semana. Practicas deportes regularmente o haces ejercicios aeróbicos.</label><br>
+                </div>
+                <div class="option-container">
+                    <input type="radio" id="activo" name="nivelActividad" value="activo">
+                    <label for="activo"><strong>ACTIVO:</strong> Haces ejercicio intenso de 6 a 7 días a la semana. Trabajas en un trabajo físicamente exigente o entrenas para una competición deportiva.</label><br>
+                </div>
+                <button onclick="calcularGastoCalorico()">CALCULAR GASTO CALÓRICO TOTAL</button>
+            </div>
+
+            <div id="resultado" style="display: none;">
+                <h2>RESULTADO DEL CÁLCULO DEL GASTO CALÓRICO TOTAL:</h2>
+                <h2 id="resultadoTexto"></h2>
+                <div style="margin-top: 20px;">
+                    <button onclick="copiarResultado()" style="width: 120px;">COPIAR RESULTADO</button>
+                    <button onclick="volverACalcular()" style="width: 120px; margin-top: 20px;">VOLVER A CALCULAR</button>
+                </div>
+                <button id="botonContinuar" onclick="continuar()" style="width: 120px; margin-top: 20px;" disabled>CONTINUAR</button>
+            </div>
+        </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                </h2> Resultado del cálculo</h2>
+                <p id="modalResultadoTexto"></p>
+                <button onclick="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        var resultadoCopiado = false;
+
+        function iniciar() {
+            // Ocultar elementos que se desean desaparecer
+            document.querySelector('.container p:nth-of-type(1)').style.display = "none"; // Descripción
+            document.querySelector('.container p:nth-of-type(2)').style.display = "none"; // Pregunta "¿QUIERES SABER, CUÁL ES TU GASTO ENERGÉTICO TOTAL?"
+            document.querySelector('.container button').style.display = "none"; // Botón "INICIAR"
+
+            // Mostrar preguntas centradas
+            document.getElementById("preguntas").style.display = "block";
+        }
+
+        function siguientePregunta1() {
+            var hombreChecked = document.getElementById("hombre").checked;
+            var mujerChecked = document.getElementById("mujer").checked;
+            if (hombreChecked || mujerChecked) {
+                document.getElementById("pregunta1").style.display = "none";
+                document.getElementById("pregunta2").style.display = "block";
+            } else {
+                alert("Por favor, selecciona tu sexo antes de continuar.");
+            }
+        }
+
+        function siguientePregunta2() {
+    var pesoInput = document.getElementById("peso").value;
+    var unidadPesoChecked = document.querySelector('input[name="unidadPeso"]:checked');
+    if (pesoInput !== "" && unidadPesoChecked !== null) {
+        document.getElementById("pregunta2").style.display = "none";
+        document.getElementById("pregunta3").style.display = "block";
+    } else {
+        alert("Por favor, ingresa tu peso y selecciona una unidad de medida antes de continuar.");
+    }
+}
+
+function siguientePregunta3() {
+    var estaturaInput = document.getElementById("estatura").value;
+    var unidadEstaturaChecked = document.querySelector('input[name="unidadEstatura"]:checked');
+    if (estaturaInput !== "" && unidadEstaturaChecked !== null) {
+        document.getElementById("pregunta3").style.display = "none";
+        document.getElementById("pregunta4").style.display = "block";
+    } else {
+        alert("Por favor, ingresa tu estatura y selecciona una unidad de medida antes de continuar.");
+    }
+}
+
+        function siguientePregunta4() {
+            var edadInput = document.getElementById("edad").value;
+            if (edadInput !== "") {
+                document.getElementById("pregunta4").style.display = "none";
+                document.getElementById("pregunta5").style.display = "block";
+            } else {
+                alert("Por favor, ingresa tu edad antes de continuar.");
+            }
+        }
+
+        function calcularGastoCalorico() {
+    // Obtener datos ingresados por el usuario
+    var sexo = document.querySelector('input[name="sexo"]:checked').value;
+    var peso = document.getElementById("peso").value;
+    var estatura = document.getElementById("estatura").value;
+    var edad = document.getElementById("edad").value;
+    var nivelActividad = document.querySelector('input[name="nivelActividad"]:checked');
+    if(nivelActividad === null){
+        alert("Por favor, selecciona tu nivel de actividad física antes de continuar.");
+        return;
+    }
+    nivelActividad = nivelActividad.value;
+
+    // Convertir unidades si es necesario
+    var unidadPeso = document.querySelector('input[name="unidadPeso"]:checked').value;
+    var unidadEstatura = document.querySelector('input[name="unidadEstatura"]:checked').value;
+
+    if (unidadPeso === "libras") {
+        peso = peso * 0.453592; // Convertir libras a kilogramos
+    }
+
+    if (unidadEstatura === "pulgadas") {
+        estatura = estatura * 2.54; // Convertir pulgadas a centímetros
+    }
+    
+    // Calcular el gasto energético basal (MB)
+    var mb;
+    if (sexo === "hombre") {
+        mb = 66.5 + (13.75 * peso) + (5.003 * estatura) - (6.775 * edad);
+    } else if (sexo === "mujer") {
+        mb = 655.1 + (9.5663 * peso) + (1.85 * estatura) - (6.775 * edad);
+    }
+
+    // Aplicar el factor de actividad física
+    var factorActividad;
+    switch (nivelActividad) {
+        case "sedentario":
+            factorActividad = 1.2;
+            break;
+        case "ligero":
+            factorActividad = 1.375;
+            break;
+        case "moderado":
+            factorActividad = 1.55;
+            break;
+        case "activo":
+            factorActividad = 1.725;
+            break;
+    }
+
+    // Calcular el gasto calórico total
+    var gastoCaloricoTotal = mb * factorActividad;
+
+    // Mostrar el resultado
+    var resultado = "Gasto calórico total: " + gastoCaloricoTotal.toFixed(2) + " kcal/día";
+    var resultadoCopiado = false;
+    document.getElementById("resultadoTexto").textContent = resultado;
+    document.getElementById("pregunta5").style.display = "none";
+    document.getElementById("resultado").style.display = "block";
+    
+    // Mostrar la alerta para copiar el resultado
+    alert("Por favor, copia el resultado antes de continuar.");
+}
+
+        function continuar() {
+            if (!resultadoCopiado) {
+                alert("Por favor, copia el resultado antes de continuar.");
+                return;
+            }
+
+            // Aquí puedes redirigir a la siguiente pregunta o acción después del cálculo del gasto calórico
+            alert("Continuar con la siguiente pregunta o acción.");
+        }
+
+        function copiarResultado() {
+            var resultadoTexto = document.getElementById("resultadoTexto").textContent;
+            var numerosResultado = resultadoTexto.match(/\d+(\.\d+)?/g); // Expresión regular para encontrar números
+
+            // Unir los números encontrados en una cadena separada por espacios
+            var numerosCopia = numerosResultado.join(" ");
+
+            // Crear un elemento de texto temporal
+            var elementoTemporal = document.createElement("textarea");
+            elementoTemporal.value = numerosCopia;
+            document.body.appendChild(elementoTemporal);
+
+            // Seleccionar y copiar el texto
+            elementoTemporal.select();
+            document.execCommand("copy");
+
+            // Eliminar el elemento temporal
+            document.body.removeChild(elementoTemporal);
+
+            // Establecer la variable resultadoCopiado en true
+            resultadoCopiado = true;
+
+            // Habilitar el botón de continuar
+            document.getElementById("botonContinuar").disabled = false;
+
+            // Mostrar un mensaje de confirmación
+            alert("¡El resultado ha sido copiado!");
+        }
+
+        function volverACalcular() {
+    // Restablecer el estado de la variable resultadoCopiado
+    resultadoCopiado = false;
+
+    // Resto del código para limpiar y mostrar las preguntas nuevamente...
+
+            // Reiniciar estado de las preguntas
+            document.getElementById("resultado").style.display = "none";
+            document.getElementById("pregunta1").style.display = "block";
+            document.getElementById("pregunta2").style.display = "none";
+            document.getElementById("pregunta3").style.display = "none";
+            document.getElementById("pregunta4").style.display = "none";
+            document.getElementById("pregunta5").style.display = "none";
+
+            // Limpiar valores ingresados por el usuario
+            document.querySelectorAll('input[type="radio"]').forEach(function(el) {
+                el.checked = false;
+            });
+            document.querySelectorAll('input[type="number"]').forEach(function(el) {
+                el.value = "";
+            });
+
+            // Mostrar preguntas centradas
+            document.getElementById("preguntas").style.display = "block";
+        }
+    </script>
+</body>
+</html>
