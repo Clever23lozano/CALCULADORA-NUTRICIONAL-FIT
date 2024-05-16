@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Gasto Calórico - Actividad Cardiovascular</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://i.postimg.cc/ncV11PDn/istockphoto-1503324641-1024x1024-transformed.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #f9f9f9; /* Cambio de color de fondo */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold; /* Texto en negrita */
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffd966; /* Color de fondo amarillo */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #resultadoTexto {
+            text-align: center;
+            font-size: 24px;
+            color: #ff5733; /* Color naranja */
+            margin-bottom: 20px;
+        }
+
+        .boton-container {
+            text-align: center;
+        }
+
+        .boton-container button {
+            margin: 10px; /* Separación entre botones */
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Gasto Calórico - Actividad Cardiovascular</h1>
+    <form id="formulario" onsubmit="return calcular()">
+        <label for="peso">1. ¿CUÁL ES TU PESO?</label>
+        <input type="number" id="peso" name="peso" placeholder="Ingresa tu peso en kg"><br><br>
+
+        <label>2. ELIGE EL NIVEL DE INTENSIDAD DE TU ACTIVIDAD CARDIOVASCULAR:</label><br>
+        <label for="baja">
+            <input type="radio" id="baja" name="intensidad" value="baja">
+           INTENSIDAD BAJA: (ejemplo: caminata ligera, donde puedes hablar sin dificultad)
+        </label><br>
+        <label for="media">
+            <input type="radio" id="media" name="intensidad" value="media">
+           INTENSIDAD MEDIA: (ejemplo: trote moderado, donde puedes hablar, pero con dificultad)
+        </label><br>
+        <label for="alta">
+            <input type="radio" id="alta" name="intensidad" value="alta">
+           INTENSIDAD ALTA: (ejemplo: carrera intensa, donde hablar, es extremadamente complicado)
+        </label><br><br>
+
+        <label for="tiempo">3. ¿CUÁNTOS MINUTOS DURÓ TU ACTIVIDAD CARDIOVASCULAR?</label><br>
+        <input type="number" id="tiempo" name="tiempo" placeholder="Ingresa el tiempo en minutos"><br><br>
+
+        <button type="submit" id="calcular-btn" disabled>Calcular</button>
+    </form>
+
+    <div id="resultado">
+        <h2>Resultado del cálculo del gasto calórico:</h2>
+        <p id="resultadoTexto"></p>
+        <div class="boton-container">
+            <button onclick="volverIntentar()">Volver a intentar</button>
+            <button onclick="continuar()">Continuar</button>
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            var peso = parseFloat(document.getElementById("peso").value);
+            var intensidad = document.querySelector('input[name="intensidad"]:checked').value;
+            var tiempo = parseFloat(document.getElementById("tiempo").value);
+
+            var factorIntensidad;
+            switch (intensidad) {
+                case "baja":
+                    factorIntensidad = 0.4; // kcal por cada 10 minutos
+                    break;
+                case "media":
+                    factorIntensidad = 0.9; // kcal por cada 10 minutos
+                    break;
+                case "alta":
+                    factorIntensidad = 1.4; // kcal por cada 10 minutos
+                    break;
+            }
+
+            var caloriasGastadas = factorIntensidad * (tiempo / 10) * peso;
+            document.getElementById("resultadoTexto").textContent = "Gastaste aproximadamente " + caloriasGastadas.toFixed(2) + " kcal en tu actividad cardiovascular.";
+            document.getElementById("resultado").style.display = "block";
+            
+            return false; // Evitar que se recargue la página al enviar el formulario
+        }
+
+        // Habilitar el botón de calcular cuando todas las preguntas estén respondidas
+        document.addEventListener("DOMContentLoaded", function() {
+            var inputs = document.querySelectorAll('input[type="number"], input[type="radio"]');
+            var calcularBtn = document.getElementById("calcular-btn");
+
+            function checkInputs() {
+                var allFilled = true;
+                inputs.forEach(function(input) {
+                    if (input.type === "number" && input.value === "") {
+                        allFilled = false;
+                    } else if (input.type === "radio" && !document.querySelector('input[name="' + input.name + '"]:checked')) {
+                        allFilled = false;
+                    }
+                });
+
+                if (allFilled) {
+                    calcularBtn.disabled = false;
+                } else {
+                    calcularBtn.disabled = true;
+                }
+            }
+
+            inputs.forEach(function(input) {
+                input.addEventListener("input", checkInputs);
+                input.addEventListener("change", checkInputs);
+            });
+        });
+
+        function volverIntentar() {
+            document.getElementById("resultado").style.display = "none";
+            document.getElementById("formulario").reset();
+            document.getElementById("calcular-btn").disabled = true;
+        }
+
+        function continuar() {
+    // Redireccionar a la siguiente página o realizar alguna otra acción de acuerdo a tus necesidades
+    alert("Continuar a la siguiente página...");
+}
+</script>
+</body>
+</html>
+            
