@@ -5,43 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pregunta del Objetivo</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            color: #f2a365;
+        }
+
+        input[type="number"], input[type="radio"], button {
+            margin: 10px 0;
+        }
+
+        input[type="number"] {
+            width: 300px;
+            height: 40px;
+            font-size: 18px;
+            padding: 5px;
+            border: 2px solid #f2a365;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        button {
+            background-color: #f2a365;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #d88a56;
+        }
+
         .objetivo-container {
-            border: 1px solid #ccc;
+            background-color: #ffffff;
+            color: #333;
+            border: 2px solid #f2a365;
             border-radius: 5px;
             padding: 10px;
-            margin-bottom: 10px;
-            font-size: 18px;
+            margin: 10px 0;
+            text-align: left;
         }
 
         .objetivo-titulo {
             font-size: 22px;
             font-weight: bold;
-            color: #333;
+            color: #f2a365;
         }
 
         .pregunta-titulo {
             font-size: 28px;
             font-weight: bold;
-            color: #333;
+            color: #ffffff;
             text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
         .resaltado {
             text-transform: uppercase;
             font-weight: bold;
             font-size: 20px;
-            color: #333;
+            color: #f2a365;
+        }
+
+        #resultadoMantenimiento, #resultadoPerder, #resultadoGanar {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+            input[type="number"] {
+                width: 90%;
+                font-size: 16px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+
+            .pregunta-titulo {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
-    <div style="text-align: center;">
+    <div>
         <h2>Gasto Calórico Total:</h2>
-        <input type="number" id="gastoCalorico" name="gastoCalorico" placeholder="Ingrese su gasto calórico total" style="width: 300px; height: 30px; font-size: 18px; margin-bottom: 10px;">
+        <input type="number" id="gastoCalorico" name="gastoCalorico" placeholder="Ingrese su gasto calórico total">
         <button onclick="pegarContenidoCopiado()">Pegar contenido copiado</button> <!-- Botón para pegar contenido copiado -->
     </div>
 
-    <div id="preguntaObjetivo" style="text-align: center;">
+    <div id="preguntaObjetivo">
         <h1 class="pregunta-titulo">¿CUÁL ES TU OBJETIVO?</h1>
         <p>Selecciona una de las siguientes opciones:</p>
         <div id="opcionesObjetivo">
@@ -68,6 +133,10 @@
         <h3>Objetivo de Mantenimiento:</h3>
         <p>El objetivo de mantenimiento implica mantener un peso corporal estable. Esto se logra equilibrando tu ingesta calórica con tu gasto calórico diario.</p>
         <button id="btnCalcularMantenimiento" onclick="calcularMantenimiento()">Calcular</button> <!-- Botón de calcular -->
+        <div id="resultadoMantenimiento"></div>
+        <button onclick="retroceder()">Retroceder</button> <!-- Botón de retroceso -->
+        <button onclick="copiarResultado()">Copiar resultado</button>
+        <button id="btnContinuarMantenimiento" onclick="irAPagina2()" disabled>Continuar</button>
     </div>
 
     <div id="opcionesDeficitCalorico" style="display: none;">
@@ -93,6 +162,10 @@
         </div>
 
         <button id="btnCalcularPerder" onclick="calcularPerder()">Calcular</button> <!-- Botón de calcular -->
+        <div id="resultadoPerder"></div>
+        <button onclick="retroceder()">Retroceder</button> <!-- Botón de retroceso -->
+        <button onclick="copiarResultado()">Copiar resultado</button>
+        <button id="btnContinuarPerder" onclick="irAPagina2()" disabled>Continuar</button>
     </div>
 
     <!-- Nueva sección para seleccionar el nivel de experiencia -->
@@ -143,6 +216,10 @@
         </div>
 
         <button id="btnCalcularGanar" onclick="calcularGanar()">Calcular</button> <!-- Botón de calcular -->
+        <div id="resultadoGanar"></div>
+        <button onclick="retroceder()">Retroceder</button> <!-- Botón de retroceso -->
+        <button onclick="copiarResultado()">Copiar resultado</button>
+        <button id="btnContinuarGanar" onclick="irAPagina2()" disabled>Continuar</button>
     </div>
 
     <script>
@@ -207,46 +284,190 @@
         }
 
         // Función para calcular la pérdida de peso
-        function calcularPerder() {
-            const gastoCaloricoTotal = parseFloat(document.getElementById('gastoCalorico').value);
-            const deficitCalorico = parseInt(document.querySelector('input[name="deficitCalorico"]:checked').value);
-            const nuevoTotalCalorias = gastoCaloricoTotal - deficitCalorico;
-            alert('Para perder ' + deficitCalorico + 'g por semana, debes consumir ' + nuevoTotalCalorias.toFixed(2) + ' calorías por día.');
-        }
+function calcularPerder() {
+    const gastoCaloricoInput = document.getElementById('gastoCalorico');
+    const gastoCaloricoTotal = parseFloat(gastoCaloricoInput.value);
 
-        function calcularMantenimiento() {
-            const gastoCaloricoTotal = parseFloat(document.getElementById('gastoCalorico').value);
-            alert('Para mantener tu peso, debes consumir ' + gastoCaloricoTotal.toFixed(2) + ' calorías por día.');
+    // Verificar si el campo del gasto calórico está lleno
+    if (isNaN(gastoCaloricoTotal) || gastoCaloricoTotal <= 0) {
+        alert('Por favor, ingresa un valor válido para el gasto calórico total.');
+        return; // Detener la ejecución de la función si el campo no está lleno
+    }
+
+    const deficitCalorico = parseInt(document.querySelector('input[name="deficitCalorico"]:checked').value);
+    const nuevoTotalCalorias = gastoCaloricoTotal - deficitCalorico;
+    const resultadoPerder = document.getElementById('resultadoPerder');
+    resultadoPerder.innerHTML = 'Para perder ' + deficitCalorico + 'g por semana, debes consumir ' + nuevoTotalCalorias.toFixed(2) + ' calorías por día.';
+    
+    // Mostrar el mensaje de alerta
+    alert('Copia el resultado del cálculo antes de continuar.');
+
+    // Activar el botón de continuar de la sección de perder peso
+document.getElementById('btnContinuarPerder').disabled = false;
+    // No redirigir automáticamente
+}
+
+// Función para calcular el mantenimiento del peso
+function calcularMantenimiento() {
+    const gastoCaloricoInput = document.getElementById('gastoCalorico');
+    const gastoCaloricoTotal = parseFloat(gastoCaloricoInput.value);
+
+    // Verificar si el campo del gasto calórico está lleno
+    if (isNaN(gastoCaloricoTotal) || gastoCaloricoTotal <= 0) {
+        alert('Por favor, ingresa un valor válido para el gasto calórico total.');
+        return; // Detener la ejecución de la función si el campo no está lleno
+    }
+
+    const resultadoMantenimiento = document.getElementById('resultadoMantenimiento');
+    resultadoMantenimiento.innerHTML = 'Para mantener tu peso, debes consumir ' + gastoCaloricoTotal.toFixed(2) + ' calorías por día.';
+
+     // Mostrar el mensaje de alerta
+    alert('Copia el resultado del cálculo antes de continuar.');
+     
+    // Activar el botón de continuar de la sección de mantenimiento
+document.getElementById('btnContinuarMantenimiento').disabled = false;
+}
+
+// Función para calcular el aumento de peso
+function calcularGanar() {
+    const gastoCaloricoInput = document.getElementById('gastoCalorico');
+    const gastoCaloricoTotal = parseFloat(gastoCaloricoInput.value);
+
+    // Verificar si el campo del gasto calórico está lleno
+    if (isNaN(gastoCaloricoTotal) || gastoCaloricoTotal <= 0) {
+        alert('Por favor, ingresa un valor válido para el gasto calórico total.');
+        return; // Detener la ejecución de la función si el campo no está lleno
+    }
+
+    const nivelSeleccionado = document.querySelector('input[name="nivelExperiencia"]:checked').value;
+    let cantidadKilosPorMes = 0;
+    if (nivelSeleccionado === "principiante") {
+        const opcionSeleccionada = document.querySelector('input[name="opcionPrincipiante"]:checked').value;
+        if (opcionSeleccionada === "opcionAPrincipiante") {
+            cantidadKilosPorMes = 1;
+        } else if (opcionSeleccionada === "opcionBPrincipiante") {
+            cantidadKilosPorMes = 1.5;
         }
+    } else if (nivelSeleccionado === "intermedio") {
+        const opcionSeleccionada = document.querySelector('input[name="opcionIntermedio"]:checked').value;
+        if (opcionSeleccionada === "opcionAIntermedio") {
+            cantidadKilosPorMes = 0.5;
+        } else if (opcionSeleccionada === "opcionBIntermedio") {
+            cantidadKilosPorMes = 1;
+        }
+    } else if (nivelSeleccionado === "avanzado") {
+        const opcionSeleccionada = document.querySelector('input[name="opcionAvanzado"]:checked').value;
+        if (opcionSeleccionada === "opcionAAvanzado") {
+            cantidadKilosPorMes = 0.5;
+        }
+    }
+    const aumentoCaloricoPorDia = (cantidadKilosPorMes * 7700) / 30; // Ajuste para obtener el aumento calórico por día
+    const nuevoTotalCalorias = gastoCaloricoTotal + aumentoCaloricoPorDia;
+    const resultadoGanar = document.getElementById('resultadoGanar');
+    resultadoGanar.innerHTML = 'Para ganar ' + cantidadKilosPorMes + ' kg por mes, debes consumir ' + nuevoTotalCalorias.toFixed(2) + ' calorías por día.';
+  
+    // Mostrar el mensaje de alerta
+    alert('Copia el resultado del cálculo antes de continuar.');
+  
+    // Activar el botón de continuar de la sección de ganar peso
+    document.getElementById('btnContinuarGanar').disabled = false;
+    // No redirigir automáticamente
+}
+
+// Función para copiar el resultado al portapapeles
+function copiarResultado() {
+    let contenido = '';
+
+    // Verificar qué resultado está presente y copiar su contenido
+    const resultadoPerder = document.getElementById('resultadoPerder');
+    const resultadoMantenimiento = document.getElementById('resultadoMantenimiento');
+    const resultadoGanar = document.getElementById('resultadoGanar');
+
+    // Verificar si el resultado de bajar peso está visible y se ha seleccionado
+    if (resultadoPerder.style.display !== 'none' && document.getElementById('opcionesDeficitCalorico').style.display !== 'none') {
+        contenido = obtenerNumero(resultadoPerder.innerText);
+    } 
+    // Verificar si el resultado de mantenimiento está visible y se ha seleccionado
+    else if (resultadoMantenimiento.style.display !== 'none' && document.getElementById('explicacionMantenimiento').style.display !== 'none') {
+        contenido = obtenerNumero(resultadoMantenimiento.innerText);
+    } 
+    // Verificar si el resultado de ganar peso está visible y se ha seleccionado
+    else if (resultadoGanar.style.display !== 'none' && document.getElementById('nivelExperiencia').style.display !== 'none') {
+        contenido = obtenerNumero(resultadoGanar.innerText);
+    }
+
+    // Verificar si se encontró contenido para copiar
+    if (contenido.trim() === '') {
+        alert('No hay contenido para copiar.');
+        return;
+    }
+
+    // Copiar el contenido al portapapeles
+    navigator.clipboard.writeText(contenido)
+        .then(() => {
+            alert('¡Resultado copiado al portapapeles!');
+        })
+        .catch(err => {
+            console.error('Error al copiar el resultado: ', err);
+        });
+}
+
+function obtenerNumero(texto) {
+    // Verificar si el texto contiene la palabra "consumir"
+    if (texto.includes('consumir')) {
+        // Utilizar una expresión regular para encontrar el número que sigue a "consumir"
+        const numeroEncontrado = texto.match(/consumir (\d+(\.\d+)?) calorías/);
+        // Si se encontró un número, devolverlo
+        if (numeroEncontrado) {
+            return numeroEncontrado[1];
+        }
+    } else if (texto.includes('Para perder')) {
+        // Utilizar una expresión regular para encontrar el número después de "Para perder"
+        const numeroEncontrado = texto.match(/Para perder (\d+(\.\d+)?)g/);
+        // Si se encontró un número, devolverlo
+        if (numeroEncontrado) {
+            return numeroEncontrado[1];
+        }
+    } else if (texto.includes('Para ganar')) {
+        // Utilizar una expresión regular para encontrar el número después de "Para ganar"
+        const numeroEncontrado = texto.match(/Para ganar (\d+(\.\d+)?) kg/);
+        // Si se encontró un número, devolverlo
+        if (numeroEncontrado) {
+            return numeroEncontrado[1];
+        }
+    }
+    // Si no se encontró ningún número, devolver una cadena vacía
+    return '';
+} 
+       
+    // Función para retroceder a la selección del objetivo
+function retroceder() {
+    // Ocultar todas las secciones excepto la pregunta del objetivo
+    document.getElementById('preguntaObjetivo').style.display = 'block';
+    document.getElementById('explicacionMantenimiento').style.display = 'none';
+    document.getElementById('opcionesDeficitCalorico').style.display = 'none';
+    document.getElementById('nivelExperiencia').style.display = 'none';
+
+    // Deshabilitar el botón de continuar de la sección de mantenimiento si existe
+    const btnContinuarMantenimiento = document.getElementById('btnContinuarMantenimiento');
+    if (btnContinuarMantenimiento) {
+        btnContinuarMantenimiento.disabled = true;
         
-        function calcularGanar() {
-            const gastoCaloricoTotal = parseFloat(document.getElementById('gastoCalorico').value);
-            const nivelSeleccionado = document.querySelector('input[name="nivelExperiencia"]:checked').value;
-            let cantidadKilosPorMes = 0;
-            if (nivelSeleccionado === "principiante") {
-                const opcionSeleccionada = document.querySelector('input[name="opcionPrincipiante"]:checked').value;
-                if (opcionSeleccionada === "opcionAPrincipiante") {
-                    cantidadKilosPorMes = 1;
-                } else if (opcionSeleccionada === "opcionBPrincipiante") {
-                    cantidadKilosPorMes = 1.5;
-                }
-            } else if (nivelSeleccionado === "intermedio") {
-                const opcionSeleccionada = document.querySelector('input[name="opcionIntermedio"]:checked').value;
-                if (opcionSeleccionada === "opcionAIntermedio") {
-                    cantidadKilosPorMes = 0.5;
-                } else if (opcionSeleccionada === "opcionBIntermedio") {
-                    cantidadKilosPorMes = 1;
-                }
-            } else if (nivelSeleccionado === "avanzado") {
-                const opcionSeleccionada = document.querySelector('input[name="opcionAvanzado"]:checked').value;
-                if (opcionSeleccionada === "opcionAAvanzado") {
-                    cantidadKilosPorMes = 0.5;
-                }
-            }
-            const aumentoCaloricoPorDia = (cantidadKilosPorMes * 7700) / 30; // Ajuste para obtener el aumento calórico por día
-            const nuevoTotalCalorias = gastoCaloricoTotal + aumentoCaloricoPorDia;
-            alert('Para ganar ' + cantidadKilosPorMes + ' kg por mes, debes consumir ' + nuevoTotalCalorias.toFixed(2) + ' calorías por día.');
-        }
+    }
+    
+    // Deshabilitar el botón de continuar de la sección de pérdida de peso si existe
+    const btnContinuarPerder = document.getElementById('btnContinuarPerder');
+    if (btnContinuarPerder) {
+        btnContinuarPerder.disabled = true;
+    }
+    
+    // Deshabilitar el botón de continuar de la sección de ganar peso si existe
+    const btnContinuarGanar = document.getElementById('btnContinuarGanar');
+    if (btnContinuarGanar) {
+        btnContinuarGanar.disabled = true;
+    }
+}
     </script>
+</script>
 </body>
     </html>
