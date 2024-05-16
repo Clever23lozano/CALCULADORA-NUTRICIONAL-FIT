@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregunta del Objetivo</title>
+    <style>
+        .objetivo-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .objetivo-titulo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .pregunta-titulo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .resaltado {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h2>Gasto Calórico Total:</h2>
+        <input type="number" id="gastoCalorico" name="gastoCalorico" placeholder="Ingrese su gasto calórico total" style="width: 300px; height: 30px; font-size: 18px; margin-bottom: 10px;">
+        <button onclick="pegarContenidoCopiado()">Pegar contenido copiado</button> <!-- Botón para pegar contenido copiado -->
+    </div>
+
+    <div id="preguntaObjetivo" style="text-align: center;">
+        <h1 class="pregunta-titulo">¿CUÁL ES TU OBJETIVO?</h1>
+        <p>Selecciona una de las siguientes opciones:</p>
+        <div id="opcionesObjetivo">
+            <div class="objetivo-container">
+                <input type="radio" id="perderPeso" name="objetivo" value="perderPeso">
+                <label for="perderPeso"><span class="objetivo-titulo">Perder peso:</span> Quiero perder peso para mejorar mi salud y apariencia física.</label><br>
+            </div>
+        
+            <div class="objetivo-container">
+                <input type="radio" id="mantenerPeso" name="objetivo" value="mantenerPeso">
+                <label for="mantenerPeso"><span class="objetivo-titulo">Mantener peso:</span> Quiero mantener mi peso actual y llevar un estilo de vida saludable.</label><br>
+            </div>
+        
+            <div class="objetivo-container">
+                <input type="radio" id="ganarPeso" name="objetivo" value="ganarPeso">
+                <label for="ganarPeso"><span class="objetivo-titulo">Ganar peso:</span> Quiero aumentar mi peso para ganar masa muscular o mejorar mi salud.</label><br>
+            </div>
+        </div>
+        
+        <button id="btnContinuar" onclick="continuar()">Continuar</button> <!-- Botón de continuar -->
+    </div>
+
+    <div id="explicacionMantenimiento" style="display: none;">
+        <h3>Objetivo de Mantenimiento:</h3>
+        <p>El objetivo de mantenimiento implica mantener un peso corporal estable. Esto se logra equilibrando tu ingesta calórica con tu gasto calórico diario.</p>
+        <button id="btnCalcularMantenimiento" onclick="calcularMantenimiento()">Calcular</button> <!-- Botón de calcular -->
+    </div>
+
+    <div id="opcionesDeficitCalorico" style="display: none;">
+        <h1 class="pregunta-titulo">¿CUÁNTO PESO DESEAS PERDER POR SEMANA?</h1>
+        <div class="objetivo-container">
+            <input type="radio" id="deficitLeve" name="deficitCalorico" value="300">
+            <label for="deficitLeve"><span class="resaltado">PÉRDIDA DE PESO LEVE</span> (0.3% = 300g/semana)</label><br>
+        </div>
+        
+        <div class="objetivo-container">
+            <input type="radio" id="deficitConservador" name="deficitCalorico" value="500">
+            <label for="deficitConservador"><span class="resaltado">PÉRDIDA DE PESO CONSERVADORA</span> (0.5% = 500g/semana)</label><br>
+        </div>
+        
+        <div class="objetivo-container">
+            <input type="radio" id="deficitModerado" name="deficitCalorico" value="750">
+            <label for="deficitModerado"><span class="resaltado">PÉRDIDA DE PESO MODERADA</span> (0.75% = 750g/semana)</label><br>
+        </div>
+        
+        <div class="objetivo-container">
+            <input type="radio" id="deficitAgresivo" name="deficitCalorico" value="1000">
+            <label for="deficitAgresivo"><span class="resaltado">PÉRDIDA DE PESO AGRESIVA</span> (1% = 1kg/semana)</label><br>
+        </div>
+
+        <button id="btnCalcularPerder" onclick="calcularPerder()">Calcular</button> <!-- Botón de calcular -->
+    </div>
+
+    <!-- Nueva sección para seleccionar el nivel de experiencia -->
+    <div id="nivelExperiencia" style="display: none;">
+        <h1 class="pregunta-titulo">¿CUÁL ES TU NIVEL DE EXPERIENCIA EN EL ENTRENAMIENTO?</h1>
+        <div class="objetivo-container">
+            <input type="radio" id="principiante" name="nivelExperiencia" value="principiante">
+            <label for="principiante"><span class="objetivo-titulo">Principiante:</span> Ideal para aquellos que están comenzando su viaje en el entrenamiento.</label><br>
+            <div id="opcionesPrincipiante" style="display: none;">
+                <h2>¿CUÁNTOS KILOS QUIERES GANAR EN UN MES?</h2>
+                <div class="objetivo-container">
+                    <input type="radio" id="opcionAPrincipiante" name="opcionPrincipiante" value="opcionAPrincipiante">
+                    <label for="opcionAPrincipiante"><span class="resaltado">OPCIÓN A:</span> Aumentarás aprox 1% de tu peso corporal por mes (equivalente a 1 kg/mes)</label><br>
+                </div>
+                <div class="objetivo-container">
+                    <input type="radio" id="opcionBPrincipiante" name="opcionPrincipiante" value="opcionBPrincipiante">
+                    <label for="opcionBPrincipiante"><span class="resaltado">OPCIÓN B:</span> Aumentarás aprox 1.5% de tu peso corporal por mes (equivalente a 1.5 kg/mes)</label><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="objetivo-container">
+            <input type="radio" id="intermedio" name="nivelExperiencia" value="intermedio">
+            <label for="intermedio"><span class="objetivo-titulo">Intermedio:</span> Para aquellos con cierta experiencia en el entrenamiento y que desean mantener un ritmo constante de ganancia muscular.</label><br>
+            <div id="opcionesIntermedio" style="display: none;">
+                <h2>¿CUÁNTOS KILOS QUIERES GANAR EN UN MES?</h2>
+                <div class="objetivo-container">
+                    <input type="radio" id="opcionAIntermedio" name="opcionIntermedio" value="opcionAIntermedio">
+                    <label for="opcionAIntermedio"><span class="resaltado">OPCIÓN A:</span> Aumentarás aprox 0.5% de tu peso corporal por mes (equivalente a 500 g/mes)</label><br>
+                </div>
+                <div class="objetivo-container">
+                    <input type="radio" id="opcionBIntermedio" name="opcionIntermedio" value="opcionBIntermedio">
+                    <label for="opcionBIntermedio"><span class="resaltado">OPCIÓN B:</span> Aumentarás aprox 1% de tu peso corporal por mes (equivalente a 1 kg/mes)</label><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="objetivo-container">
+            <input type="radio" id="avanzado" name="nivelExperiencia" value="avanzado">
+            <label for="avanzado"><span class="objetivo-titulo">Avanzado:</span> Para aquellos con un nivel avanzado de entrenamiento y que buscan maximizar el crecimiento muscular mientras minimizan la ganancia de grasa.</label><br>
+            <div id="opcionesAvanzado" style="display: none;">
+                <h2>¿CUÁNTOS KILOS QUIERES GANAR EN UN MES?</h2>
+                <div class="objetivo-container">
+                    <input type="radio" id="opcionAAvanzado" name="opcionAvanzado" value="opcionAAvanzado">
+                    <label for="opcionAAvanzado"><span class="resaltado">OPCIÓN A:</span> Aumentarás aprox 0.5% de tu peso corporal por mes (equivalente a 500 g/mes)</label><br>
+                </div>
+            </div>
+        </div>
+
+        <button id="btnCalcularGanar" onclick="calcularGanar()">Calcular</button> <!-- Botón de calcular -->
+    </div>
+
+    <script>
+        // Función para mostrar la sección correspondiente según el objetivo seleccionado
+        function continuar() {
+            const objetivoSeleccionado = document.querySelector('input[name="objetivo"]:checked').value;
+            if (objetivoSeleccionado === "mantenerPeso") {
+                document.getElementById('preguntaObjetivo').style.display = 'none';
+                document.getElementById('explicacionMantenimiento').style.display = 'block';
+            } else if (objetivoSeleccionado === "perderPeso") {
+                document.getElementById('preguntaObjetivo').style.display = 'none';
+                document.getElementById('opcionesDeficitCalorico').style.display = 'block';
+            } else if (objetivoSeleccionado === "ganarPeso") {
+                document.getElementById('preguntaObjetivo').style.display = 'none';
+                document.getElementById('nivelExperiencia').style.display = 'block';
+            }
+        }
+
+        // Función para mostrar las opciones para principiantes cuando se selecciona el nivel de experiencia principiante
+        document.getElementById('principiante').addEventListener('click', function() {
+            document.getElementById('opcionesPrincipiante').style.display = 'block';
+        });
+
+        // Función para ocultar las opciones para principiantes cuando se selecciona otro nivel de experiencia
+        document.getElementById('intermedio').addEventListener('click', function() {
+            document.getElementById('opcionesPrincipiante').style.display = 'none';
+        });
+
+        document.getElementById('avanzado').addEventListener('click', function() {
+            document.getElementById('opcionesPrincipiante').style.display = 'none';
+        });
+
+        document.getElementById('intermedio').addEventListener('click', function() {
+            document.getElementById('opcionesIntermedio').style.display = 'block';
+        });
+
+        document.getElementById('principiante').addEventListener('click', function() {
+            document.getElementById('opcionesIntermedio').style.display = 'none';
+        });
+
+        document.getElementById('avanzado').addEventListener('click', function() {
+            document.getElementById('opcionesIntermedio').style.display = 'none';
+        });
+
+        document.getElementById('avanzado').addEventListener('click', function() {
+            document.getElementById('opcionesAvanzado').style.display = 'block';
+        });
+
+        document.getElementById('principiante').addEventListener('click', function() {
+            document.getElementById('opcionesAvanzado').style.display = 'none';
+        });
+
+        // Función para pegar contenido copiado en el campo de gasto calórico total
+        function pegarContenidoCopiado() {
+            // Verificar si hay algo copiado en el portapapeles
+            navigator.clipboard.readText().then(contenidoCopiado => {
+                // Pegar el contenido copiado en el campo de gasto calórico total
+                document.getElementById('gastoCalorico').value = contenidoCopiado;
+            }).catch(err => {
+                console.error('Error al leer el portapapeles: ', err);
+            });
+        }
+
+        // Función para calcular la pérdida de peso
+        function calcularPerder() {
+            const gastoCaloricoTotal = parseFloat(document.getElementById('gastoCalorico').value);
+            const deficitCalorico = parseInt(document.querySelector('input[name="deficitCalorico"]:checked').value);
+            const nuevoTotalCalorias = gastoCaloricoTotal - deficitCalorico;
+            alert('Para perder ' + deficitCalorico + 'g por semana, debes consumir ' + nuevoTotalCalorias.toFixed(2) + ' calorías por día.');
+        }
+
+        function calcularMantenimiento() {
+            const gastoCaloricoTotal = parseFloat(document.getElementById('gastoCalorico').value);
+            alert('Para mantener tu peso, debes consumir ' + gastoCaloricoTotal.toFixed(2) + ' calorías por día.');
+        }
+        
+        function calcularGanar() {
+            const gastoCaloricoTotal = parseFloat(document.getElementById('gastoCalorico').value);
+            const nivelSeleccionado = document.querySelector('input[name="nivelExperiencia"]:checked').value;
+            let cantidadKilosPorMes = 0;
+            if (nivelSeleccionado === "principiante") {
+                const opcionSeleccionada = document.querySelector('input[name="opcionPrincipiante"]:checked').value;
+                if (opcionSeleccionada === "opcionAPrincipiante") {
+                    cantidadKilosPorMes = 1;
+                } else if (opcionSeleccionada === "opcionBPrincipiante") {
+                    cantidadKilosPorMes = 1.5;
+                }
+            } else if (nivelSeleccionado === "intermedio") {
+                const opcionSeleccionada = document.querySelector('input[name="opcionIntermedio"]:checked').value;
+                if (opcionSeleccionada === "opcionAIntermedio") {
+                    cantidadKilosPorMes = 0.5;
+                } else if (opcionSeleccionada === "opcionBIntermedio") {
+                    cantidadKilosPorMes = 1;
+                }
+            } else if (nivelSeleccionado === "avanzado") {
+                const opcionSeleccionada = document.querySelector('input[name="opcionAvanzado"]:checked').value;
+                if (opcionSeleccionada === "opcionAAvanzado") {
+                    cantidadKilosPorMes = 0.5;
+                }
+            }
+            const aumentoCaloricoPorDia = (cantidadKilosPorMes * 7700) / 30; // Ajuste para obtener el aumento calórico por día
+            const nuevoTotalCalorias = gastoCaloricoTotal + aumentoCaloricoPorDia;
+            alert('Para ganar ' + cantidadKilosPorMes + ' kg por mes, debes consumir ' + nuevoTotalCalorias.toFixed(2) + ' calorías por día.');
+        }
+    </script>
+</body>
+    </html>
