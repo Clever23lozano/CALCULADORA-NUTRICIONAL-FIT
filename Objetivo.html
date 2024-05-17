@@ -236,7 +236,9 @@
                 document.getElementById('preguntaObjetivo').style.display = 'none';
                 document.getElementById('nivelExperiencia').style.display = 'block';
             }
-        }
+            
+            
+            }
 
         // Función para mostrar las opciones para principiantes cuando se selecciona el nivel de experiencia principiante
         document.getElementById('principiante').addEventListener('click', function() {
@@ -303,8 +305,12 @@ function calcularPerder() {
     alert('Copia el resultado del cálculo antes de continuar.');
 
     // Activar el botón de continuar de la sección de perder peso
-document.getElementById('btnContinuarPerder').disabled = false;
-    // No redirigir automáticamente
+    document.getElementById('btnContinuarPerder').disabled = false;
+
+    // Redirigir a la siguiente página después de presionar el botón de continuar
+    document.getElementById('btnContinuarPerder').onclick = function() {
+        window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/preguntadeactividadcardiovascular.html";
+    };
 }
 
 // Función para calcular el mantenimiento del peso
@@ -320,12 +326,17 @@ function calcularMantenimiento() {
 
     const resultadoMantenimiento = document.getElementById('resultadoMantenimiento');
     resultadoMantenimiento.innerHTML = 'Para mantener tu peso, debes consumir ' + gastoCaloricoTotal.toFixed(2) + ' calorías por día.';
-
-     // Mostrar el mensaje de alerta
+    
+    // Mostrar el mensaje de alerta
     alert('Copia el resultado del cálculo antes de continuar.');
-     
+
     // Activar el botón de continuar de la sección de mantenimiento
-document.getElementById('btnContinuarMantenimiento').disabled = false;
+    document.getElementById('btnContinuarMantenimiento').disabled = false;
+
+    // Redirigir a la siguiente página después de presionar el botón de continuar
+    document.getElementById('btnContinuarMantenimiento').onclick = function() {
+        window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/preguntadeactividadcardiovascular.html";
+    };
 }
 
 // Función para calcular el aumento de peso
@@ -368,10 +379,14 @@ function calcularGanar() {
   
     // Mostrar el mensaje de alerta
     alert('Copia el resultado del cálculo antes de continuar.');
-  
+
     // Activar el botón de continuar de la sección de ganar peso
     document.getElementById('btnContinuarGanar').disabled = false;
-    // No redirigir automáticamente
+
+    // Redirigir a la siguiente página después de presionar el botón de continuar
+    document.getElementById('btnContinuarGanar').onclick = function() {
+        window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/preguntadeactividadcardiovascular.html";
+    };
 }
 
 // Función para copiar el resultado al portapapeles
@@ -470,4 +485,4 @@ function retroceder() {
     </script>
 </script>
 </body>
-    </html>
+</html>
