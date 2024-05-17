@@ -79,6 +79,14 @@
             margin-bottom: 20px;
         }
 
+        #valorPortapapeles {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
         .boton-container {
             text-align: center;
         }
@@ -111,6 +119,7 @@
         <label for="tiempo">3. ¿CUÁNTOS MINUTOS DURÓ TU ACTIVIDAD CARDIOVASCULAR?</label><br>
         <input type="number" id="tiempo" name="tiempo" placeholder="Ingresa el tiempo en minutos"><br><br>
 
+
         <button type="submit" id="calcular-btn" disabled>Calcular</button>
     </form>
 
@@ -118,6 +127,9 @@
         <h2>Resultado del cálculo del gasto calórico:</h2>
         <p id="resultadoTexto"></p>
         <div class="boton-container">
+          <label for="valorPortapapeles">Gasto Calórico Total + Objetivo:</label>
+        <input type="text" id="valorPortapapelesResultado" name="Gastocalóricototal + Objetivo" placeholder="Pegar el Resultado anterior" onclick="pegarValorPortapapeles()"><br><br>
+
             <button onclick="volverIntentar()">Volver a intentar</button>
             <button onclick="continuar()">Continuar</button>
         </div>
@@ -143,12 +155,13 @@
             }
 
             var caloriasGastadas = factorIntensidad * (tiempo / 10) * peso;
-            document.getElementById("resultadoTexto").textContent = "Gastaste aproximadamente " + caloriasGastadas.toFixed(2) + " kcal en tu actividad cardiovascular.";
+            document.getElementById("resultadoTexto").textContent = "TU GASTO CALÓRICO FUE DE " + caloriasGastadas.toFixed(2) + " kcal Y este gasto se tiene que sumar al:";
+            document.getElementById("valorPortapapelesResultado").value = ""; // Limpiar el cuadro de pegado manual
             document.getElementById("resultado").style.display = "block";
             
             return false; // Evitar que se recargue la página al enviar el formulario
         }
-
+        
         // Habilitar el botón de calcular cuando todas las preguntas estén respondidas
         document.addEventListener("DOMContentLoaded", function() {
             var inputs = document.querySelectorAll('input[type="number"], input[type="radio"]');
@@ -184,10 +197,30 @@
         }
 
         function continuar() {
-    // Redireccionar a la siguiente página o realizar alguna otra acción de acuerdo a tus necesidades
-    alert("Continuar a la siguiente página...");
-}
-</script>
+            var gastoCalorico = parseFloat(document.getElementById("resultadoTexto").textContent.match(/[\d\.]+/)[0]);
+            var valorPegado = parseFloat(document.getElementById("valorPortapapelesResultado").value);
+
+            if (!isNaN(gastoCalorico) && !isNaN(valorPegado)) {
+                var sumaTotal = gastoCalorico + valorPegado;
+
+                // Copiar el resultado de la suma al portapapeles
+                navigator.clipboard.writeText(sumaTotal.toFixed(2)).then(function() {
+                    // Redirigir a la siguiente página (cambiar URL por la que desees)
+                    window.location.href = "URL_DE_TU_SIGUIENTE_PAGINA"; // Cambia esto por la URL real
+                }, function() {
+                    alert('Error al copiar al portapapeles');
+                });
+            } else {
+                alert("Por favor, asegúrate de que el valor pegado es un número válido.");
+            }
+        }
+
+        // Función para pegar el valor del portapapeles al cuadro al hacer clic en él
+        function pegarValorPortapapeles() {
+            navigator.clipboard.readText().then(function(text) {
+                document.getElementById("valorPortapapelesResultado").value = text;
+            });
+        }
+    </script>
 </body>
-</html>
-            
+                </html>
