@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DISTRIBUCIÓN DE LOS MACRONUTRIENTES</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .cuadro {
+            flex: 0 0 calc(30% - 20px);
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #deficit {
+            background-color: #ff9999; /* Rojo claro para déficit calórico */
+        }
+
+        #superavit {
+            background-color: #99ff99; /* Verde claro para superávit calórico */
+        }
+
+        #mantenimiento {
+            background-color: #9999ff; /* Azul claro para mantenimiento */
+        }
+
+        p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>DISTRIBUCIÓN DE LOS MACRONUTRIENTES</h1>
+    <h2>RECUERDAME: ¿CUÁL ES TU OBJETIVO? ¿QUÉ DESEAS LOGRAR?</h2>
+
+    <div class="container">
+        <div class="cuadro" id="deficit" onclick="redirigir('url_deficit')">
+            <h3>DÉFICIT CALÓRICO</h3>
+            <p>(Bajar de Peso)</p>
+        </div>
+
+        <div class="cuadro" id="superavit" onclick="redirigir('url_superavit')">
+            <h3>SUPERÁVIT CALÓRICO</h3>
+            <p>(Ganar Masa Muscular)</p>
+        </div>
+
+        <div class="cuadro" id="mantenimiento" onclick="redirigir('url_mantenimiento')">
+            <h3>MANTENIMIENTO</h3>
+            <p>(Mantener el Mismo Peso)</p>
+        </div>
+    </div>
+
+    <script>
+        function redirigir(url) {
+            // Redirigir a la URL especificada
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
