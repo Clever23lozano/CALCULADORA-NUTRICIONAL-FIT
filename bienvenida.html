@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('https://i.postimg.cc/RZn3pJBd/d8097dcb-492a-43b3-9724-e003f574176d.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white; /* Color de texto general */
+        }
+        .welcome-message {
+            margin-top: 50px;
+            font-size: 20px; /* Tamaño de fuente para el mensaje de bienvenida */
+            color: rgba(255, 255, 255, 0.9); /* Color de texto para mensaje de bienvenida */
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* Sombra de texto más pronunciada */
+        }
+        .buttons-container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #volverAlInicio {
+            background-color: #4CAF50;
+        }
+        #continuar {
+            background-color: #008CBA;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 24px; /* Tamaño de fuente para los botones */
+            margin: 20px;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-message">
+        <p>Gracias por registrarte y haber respondido todas las preguntas, ahora gracias a eso, tenemos toda la información para ayudarte a cumplir tus objetivos.</p>
+        <p>Ahora puedes continuar a la Pantalla Principal y descubrir la magia de esta app, o si quizás no agregaste una información correcta, puedes volver al inicio y volver a agregar tu información.</p>
+    </div>
+    <div class="buttons-container">
+        <a href="#" class="button" id="volverAlInicio" onclick="location.href='TU_ENLACE_AQUI'">VOLVER AL INICIO</a>
+        <a href="#" class="button" id="continuar" onclick="location.href='TU_ENLACE_AQUI'">CONTINUAR</a>
+    </div>
+</body>
+</html>
