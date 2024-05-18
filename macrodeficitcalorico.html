@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             background-image:
-    url('https://i.postimg.cc/yYRBwmDD/d49d0423-3a1d-45ba-967b-d70024b149af.jpg');
+                url('https://i.postimg.cc/yYRBwmDD/d49d0423-3a1d-45ba-967b-d70024b149af.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             margin: 0;
@@ -149,7 +149,7 @@
     <h1>DISTRIBUCIÓN DE MACRONUTRIENTES PARA HACER UN DÉFICIT CALÓRICO</h1>
     <form id="formulario" onsubmit="return calcularMacronutrientes()">
         <label for="calorias">CALORÍAS DIARIAS</label>
-        <input type="number" id="calorias" name="calorias" placeholder="Ingresa tus calorías diarias" onclick="this.value = navigator.clipboard.readText()">
+        <input type="number" id="calorias" name="calorias" placeholder="Ingresa tus calorías diarias" onclick="navigator.clipboard.readText().then(text => document.getElementById('calorias').value = text)">
         
         <label for="calorias">ELIGE EL PORCENTAJE DE TUS MACRONUTRIENTES:</label>
         
@@ -244,4 +244,4 @@
         }
     </script>
 </body>
-  </html>
+    </html>
