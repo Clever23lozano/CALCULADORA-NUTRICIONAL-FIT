@@ -227,6 +227,15 @@
             document.getElementById("preguntas").style.display = "block";
         }
 
+        // Variable que representa el estado de inicio de sesión o registro
+var usuarioRegistrado = false;
+
+// Verificar si el usuario está registrado o ha iniciado sesión
+if (!usuarioRegistrado) {
+    // Redirigir al usuario a la página de inicio de sesión o registro
+    window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/índice.html";
+}
+
         function siguientePregunta1() {
             var hombreChecked = document.getElementById("hombre").checked;
             var mujerChecked = document.getElementById("mujer").checked;
@@ -400,4 +409,4 @@ function siguientePregunta3() {
         }
     </script>
 </body>
-</html>
+    </html>
