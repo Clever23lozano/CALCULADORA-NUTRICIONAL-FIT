@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DISTRIBUCIÓN DE MACRONUTRIENTES PARA HACER UN MANTENIMIENTO CALÓRICO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image:
+                url('https://i.postimg.cc/yYRBwmDD/d49d0423-3a1d-45ba-967b-d70024b149af.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+            background-color: #b2dfdb; /* Verde agua pastel */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        input[type="radio"]:checked + label {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            padding: 8px;
+        }
+
+        button {
+            padding: 20px 35px; /* Aumentar tamaño del botón */
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #resultado p {
+            font-size: 18px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+        }
+
+        .macronutriente {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .proteinas {
+            background-color: #ffccbc;
+        }
+
+        .carbohidratos {
+            background-color: #fff9c4;
+        }
+
+        .grasas {
+            background-color: #c8e6c9;
+        }
+
+        .boton-volver, .boton-continuar {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .boton-continuar {
+            background-color: #f44336;
+        }
+
+        .boton-volver:hover {
+            background-color: #1976D2;
+        }
+
+        .boton-continuar:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <h1>DISTRIBUCIÓN DE MACRONUTRIENTES PARA HACER UN MANTENIMIENTO CALÓRICO</h1>
+    <form id="formulario" onsubmit="return calcularMacronutrientes()">
+        <label for="calorias">CALORÍAS DIARIAS</label>
+        <input type="number" id="calorias" name="calorias" placeholder="Ingresa tus calorías diarias" onclick="navigator.clipboard.readText().then(text => document.getElementById('calorias').value = text)">
+        
+        <label for="calorias">ELIGE EL PORCENTAJE DE TUS MACRONUTRIENTES:</label>
+        
+        <div class="macronutriente proteinas">
+            <h2>PROTEÍNAS:</h2>
+            <p>La proteína es crucial para preservar la masa muscular durante la pérdida de peso.</p>
+            <input type="radio" id="proteinas30" name="proteinas" value="30">
+            <label for="proteinas30">30%</label>
+            <input type="radio" id="proteinas35" name="proteinas" value="35">
+            <label for="proteinas35">35%</label>
+        </div>
+
+        <div class="macronutriente carbohidratos">
+            <h2>CARBOHIDRATOS:</h2>
+            <p>Los carbohidratos son importantes para mantener el rendimiento en el ejercicio y la energía general.</p>
+            <input type="radio" id="carbohidratos40" name="carbohidratos" value="40">
+            <label for="carbohidratos30">40%</label>
+            <input type="radio" id="carbohidratos45" name="carbohidratos" value="45">
+            <label for="carbohidratos40">45%</label>
+        </div>
+
+        <div class="macronutriente grasas">
+            <h2>GRASAS:</h2>
+            <p>Las grasas son importantes para la salud general y las funciones hormonales.</p>
+            <input type="radio" id="grasas20" name="grasas" value="20">
+            <label for="grasas25">20%</label>
+            <input type="radio" id="grasas25" name="grasas" value="25">
+            <label for="grasas30">25%</label>
+            <input type="radio" id="grasas30" name="grasas" value="30">
+            <label for="grasas25">30%</label>
+        </div>
+
+        <button type="submit">CALCULAR</button>
+    </form>
+
+    <div id="resultado" class="modal">
+        <div class="modal-content">
+            <h2>Distribución de Macronutrientes</h2>
+            <p id="resultadoTexto"></p>
+            <button class="boton-volver" onclick="volverCalcular()">VOLVER A CALCULAR</button>
+            <button class="boton-continuar" onclick="copiarResultado()">CONTINUAR</button>
+        </div>
+    </div>
+
+    <script>
+        function calcularMacronutrientes() {
+            var calorias = parseFloat(document.getElementById("calorias").value);
+            if (isNaN(calorias)) {
+                alert("Por favor, ingresa un valor para las calorías diarias.");
+                return false;
+            }
+
+            var porcentajeProteinas = parseFloat(document.querySelector('input[name="proteinas"]:checked').value);
+            var porcentajeCarbohidratos = parseFloat(document.querySelector('input[name="carbohidratos"]:checked').value);
+            var porcentajeGrasas = parseFloat(document.querySelector('input[name="grasas"]:checked').value);
+
+            if (porcentajeProteinas + porcentajeCarbohidratos + porcentajeGrasas !== 100) {
+                alert("La suma de los porcentajes debe ser igual a 100.");
+                return false;
+            }
+
+            var caloriasProteinas = (calorias * porcentajeProteinas) / 100;
+            var caloriasCarbohidratos = (calorias * porcentajeCarbohidratos) / 100;
+            var caloriasGrasas = (calorias * porcentajeGrasas) / 100;
+
+            var gramosProteinas = caloriasProteinas / 4;
+            var gramosCarbohidratos = caloriasCarbohidratos / 4;
+            var gramosGrasas = caloriasGrasas / 9;
+
+            document.getElementById("resultadoTexto").innerHTML = 
+                "<div class='macronutriente proteinas'>Proteínas: " + gramosProteinas.toFixed(2) + "g</div>" +
+                "<div class='macronutriente carbohidratos'>Carbohidratos: " + gramosCarbohidratos.toFixed(2) + "g</div>" +
+                "<div class='macronutriente grasas'>Grasas: " + gramosGrasas.toFixed(2) + "g</div>";
+
+            document.getElementById("resultado").style.display = "block";
+
+            return false; // Evitar que se recargue la página al enviar el formulario
+        }
+
+        function volverCalcular() {
+            document.getElementById("resultado").style.display = "none";
+            document.getElementById("formulario").reset();
+        }
+
+        function copiarResultado() {
+            var resultadoTexto = document.getElementById("resultadoTexto");
+            var rango = document.createRange();
+            rango.selectNode(resultadoTexto);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(rango);
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+            window.location.href = "https://clever23lozano.github.io/CALCULADORA-NUTRICIONAL-FIT/bienvenida.html";
+        }
+    </script>
+</body>
+      </html>
