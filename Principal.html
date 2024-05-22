@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz Similar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #007BFF;
+            --premium-color: #FFD700;
+            --text-color: #333;
+            --background-color: #f0f0f0;
+            --white-color: #fff;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .icon-button {
+            width: 40px;
+            height: 40px;
+            background-color: var(--white-color);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .icon-button .icon {
+            font-size: 24px;
+            color: var(--primary-color);
+        }     
+        
+        /* Clase para deshabilitar el scroll del body */
+.body-no-scroll {
+    overflow: hidden;
+}   
+       
+        .profile-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden; /* Evita el desplazamiento de la pantalla de atrás */
+}
+
+.profile-modal .modal-content {
+    background: var(--white-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    height: 90%; /* Ajusta la altura del modal */
+    max-width: none; /* Deshabilita el ancho máximo */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Agrega scroll si el contenido excede el tamaño del modal */
+}
+
+.profile-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-modal .modal-header h2 {
+    margin: 0;
+}
+
+.profile-modal .modal-header .close-button {
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.profile-modal .modal-body {
+    margin-top: 20px;
+    overflow-y: auto; /* Asegura que el contenido del cuerpo sea desplazable */
+}
+
+.profile-modal .profile-header {
+    display: flex;
+    align-items: center;
+}
+
+.profile-modal .profile-header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile-modal .profile-header h3 {
+    margin: 0;
+}
+
+.profile-modal .modal-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.profile-modal .modal-body ul li {
+    display: flex;
+    align-items: center;
+    padding: 15px 0; /* Aumenta el padding para hacer las opciones más grandes */
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 18px; /* Aumenta el tamaño de la fuente */
+}
+
+.profile-modal .modal-body ul li:hover {
+    background: #f0f0f0;
+}
+
+.profile-modal .modal-body ul li i {
+    margin-right: 15px; /* Aumenta el margen entre el icono y el texto */
+    font-size: 1.5em; /* Aumenta el tamaño del icono */
+}
+
+/* Colores para cada icono */
+.profile-modal .modal-body ul li i.fa-utensils {
+    color: #ff6347; /* Color para Configurar Nutrición */
+}
+
+.profile-modal .modal-body ul li i.fa-shopping-cart {
+    color: #ff8c00; /* Color para Lista de Compras */
+}
+
+.profile-modal .modal-body ul li i.fa-bell {
+    color: #ffd700; /* Color para Notificaciones */
+}
+
+.profile-modal .modal-body ul li i.fa-language {
+    color: #7fffd4; /* Color para Idiomas y Unidades */
+}
+
+.profile-modal .modal-body ul li i.fa-palette {
+    color: #8a2be2; /* Color para Apariencia y Vibración */
+}
+
+.profile-modal .modal-body ul li i.fa-info-circle {
+    color: #00ced1; /* Color para Centro de Ayuda */
+}
+
+.profile-modal .modal-body ul li i.fa-bug {
+    color: #ff4500; /* Color para Reportar un Problema */
+}
+
+.profile-modal .modal-body ul li i.fa-cog {
+    color: #4682b4; /* Color para Ajustes Generales */
+}
+
+.profile-modal .modal-body ul li i.fa-sign-out-alt {
+    color: #dc143c; /* Color para Cerrar Sesión */
+}
+
+/* Nuevo color para el icono de Compartir */
+.profile-modal .modal-body ul li i.fa-share-alt {
+    color: #32cd32; /* Color para Compartir */
+}
+
+.espaciador {
+    height: 50px; /* Ajusta la altura según sea necesario */
+}
+
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 50px 10px 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+
+        .search-button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .premium-button {
+            background-color: var(--premium-color);
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white-color);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .date-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-selector .date {
+            display: flex;
+            gap: 5px;
+        }
+
+        .date-selector .date div {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #eaeaea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .date-selector .date .active {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+        }
+
+        .macros {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .macros div {
+            text-align: center;
+        }
+
+        .macros div p {
+            margin: 0;
+        }
+
+        .progress-bars {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            margin-left: 10px;
+        }
+
+        .progress-bar div {
+            height: 100%;
+            background-color: var(--secondary-color);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            transition: width 0.3s;
+        }
+
+        .food-section {
+            margin-top: 20px;
+        }
+
+        .meal {
+            margin-bottom: 20px;
+        }
+
+        .meal h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .meal h3 .more-options {
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .meal .add-food {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .meal .add-food span {
+            font-size: 2em;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--secondary-color);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .footer div:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+            padding: 10px 0;
+            border-radius: 5px;
+        }
+
+        .footer-icon {
+                        font-size: 1.5em;
+        }
+
+        .footer-text {
+            font-size: 0.9em;
+        }
+
+        .circular-progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .circular-progress::after {
+            content: "0 / 2233 kcal";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .progress-ring {
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            transition: stroke-dashoffset 0.3s;
+        }
+
+        .water-intake {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .water-intake h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .water-intake .cups {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .water-intake .cup {
+            width: 30px;
+            height: 60px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            position: relative;
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        .water-intake .cup .filled {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-color);
+            height: 0;
+            transition: height 0.3s;
+        }
+
+        .floating-button {
+            position: fixed;
+            bottom: 50%;
+            right: 20px;
+            transform: translateY(50%);
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .shortcut-bar {
+            position: fixed;
+            bottom: 50%;
+            right: 100px;
+            transform: translateY(50%);
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .shortcut-bar.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .shortcut-bar div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .shortcut-bar div:hover {
+            background-color: #0056b3;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .draggable {
+            position: absolute;
+            cursor: pointer;
+            touch-action: none;
+        }
+
+        .change-recipe-button {
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .menu-button {
+            background-color: #00ccff;
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .change-recipe-button:hover,
+        .menu-button:hover {
+            opacity: 0.8;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .recipe-button {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .recipe-button.create-recipe {
+            background-color: #ffcc00;
+            color: #000;
+        }
+
+        .recipe-button.add-recipe {
+            background-color: #00ccff;
+            color: #000;
+        }
+
+        .comida {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .comida h2 {
+            font-size: 1.5em;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        .info-nutricional {
+            display: flex;
+            gap: 10px;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .circle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        .circle-button {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .circle-button.active {
+            background-color: #00cc00;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+        }
+
+        .header h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-button {
+            margin-left: 5px;
+            background-color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            position: relative;
+            top: -2px;
+        }
+
+        .info-icon {
+            font-size: 12px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .more-options {
+            margin-left: auto;
+            cursor: pointer;
+        }
+
+        .status {
+            margin-top: 5px;
+        }
+
+        .cups {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .cup {
+            width: 20px;
+            height: 40px;
+            background-color: #e0e0e0;
+            margin: 2px;
+            cursor: pointer;
+        }
+
+        .filled {
+            width: 100%;
+            height: 100%;
+            background-color: #2196F3;
+        }
+
+        .info-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .info-button {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 20px;
+        }
+
+        .info-button i {
+            font-size: 1.2em;
+        }
+
+        .info-button:hover {
+            background-color: #138496;
+        }
+        
+        .notification-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden; /* Evita el desplazamiento de la pantalla de atrás */
+}
+
+.notification-modal .modal-content {
+    background: var(--white-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-modal .modal-header h2 {
+    margin: 0;
+}
+
+.notification-modal .modal-header .close-button {
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.notification-modal .modal-body {
+    margin-top: 20px;
+}
+
+.notification-modal .modal-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-modal .modal-body ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px; /* Tamaño de fuente de los mensajes */
+    line-height: 1.5; /* Altura de línea */
+    color: var(--text-color); /* Color del texto */
+}
+
+.notification-modal .modal-body ul li:last-child {
+    border-bottom: none; /* Sin borde para el último elemento */
+}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <button class="icon-button profile-button" aria-label="Perfil"><span class="icon">👤</span></button>
+        <h1>Nutrifitness</h1>
+        <button class="icon-button notification-icon" aria-label="Notificaciones">🔔</button>
+    </header>
+
+    <div class="profile-modal" id="profileModal">
+        <div class="modal-content" role="dialog" aria-labelledby="profileModalLabel">
+            <div class="modal-header">
+                <h2 id="profileModalLabel">Cuenta</h2>
+                <button class="close-button" onclick="closeProfileModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-header">
+                    <img src="profile.jpg" alt="Profile Picture">
+                    <h3>Clever <span style="color: #FFD700;">&#x1F48E;</span></h3>
+                </div>
+                <ul>
+                    <li><i class="fas fa-utensils"></i> Configurar Nutrición</li>
+                    <li><i class="fas fa-shopping-cart">                    </i> Lista de Compras</li>
+                    <li><i class="fas fa-bell"></i> Notificaciones</li>
+                    <li><i class="fas fa-language"></i> Idiomas y Unidades</li>
+                    <li><i class="fas fa-palette"></i> Apariencia y Vibración</li>
+                    <li><i class="fas fa-info-circle"></i> Centro de Ayuda</li>
+                    <li><i class="fas fa-bug"></i> Reportar un Problema</li>
+                    <li><i class="fas fa-cog"></i> Cuenta</li> <!-- Nuevo botón -->
+                    <li><i class="fas fa-share-alt"></i> Compartir</li> <!-- Nuevo botón -->
+                    <li><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</li>
+                </ul>               
+                <div class="espaciador"></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <button class="premium-button">PASAR A PREMIUM <span>👑</span></button>
+    </div>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Busca un alimento...">
+        <button class="search-button">Buscar</button>
+    </div>
+
+    <div class="container">
+        <div class="date-selector">
+            <div class="date">
+                <div>13</div>
+                <div>14</div>
+                <div>15</div>
+                <div>16</div>
+                <div class="active">17</div>
+                <div>18</div>
+                <div>19</div>
+            </div>
+            <div>
+                <span>May 17</span>
+            </div>
+        </div>
+
+        <div class="circular-progress">
+            <svg width="150" height="150">
+                <circle cx="75" cy="75" r="70" fill="none" stroke="#e0e0e0" stroke-width="10"/>
+                <circle cx="75" cy="75" r="70" fill="none" stroke="#4CAF50" stroke-width="10" class="progress-ring"/>
+            </svg>
+        </div>
+
+        <div class="macros">
+            <div>
+                <p>Proteínas</p>
+                <div class="progress-bar">
+                    <div></div>
+                </div>
+                <p>0 / 113 g</p>
+            </div>
+            <div>
+                <p>Carbs</p>
+                <div class="progress-bar">
+                    <div></div>
+                </div>
+                <p>0 / 250 g</p>
+            </div>
+            <div>
+                <p>Grasas</p>
+                <div class="progress-bar">
+                    <div></div>
+                </div>
+                <p>0 / 87 g</p>
+            </div>
+        </div>
+
+        <div class="info-container">
+            <button class="info-button" aria-label="Información">
+                <i class="fas fa-info-circle"></i>
+            </button>
+        </div>
+        <div class="food-section">
+            <div class="meal">
+                <h3>Desayuno 
+                    <div class="circle-container">
+                        <button class="circle-button" onclick="toggleCircle(this)"></button>
+                    </div>
+                    <button class="change-recipe-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-exchange-alt" style="color: #ffcc00; font-size: 24px;"></i>
+                    </button>
+                    <button class="menu-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-bars" style="color: #00ccff; font-size: 24px;"></i>
+                    </button>
+                    <span class="more-options">⋮</span>
+                </h3>
+                <div class="info-nutricional">
+                    <span>643 kcal</span>
+                    <span>35 P</span>
+                    <span>74 C</span>
+                    <span>24 G</span>
+                </div>
+                <div class="add-food">
+                    <span>+</span>
+                </div>
+                <div class="button-container">
+                    <button class="change-recipe-button">Crear Receta</button>
+                    <button class="menu-button">Añadir Receta</button>
+                </div>
+            </div>
+            <div class="meal">
+                <h3>Media Mañana 
+                    <div class="circle-container">
+                        <button class="circle-button" onclick="toggleCircle(this)"></button>
+                    </div>
+                    <button class="change-recipe-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-exchange-alt" style="color: #ffcc00; font-size: 24px;"></i>
+                    </button>
+                    <button class="menu-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-bars" style="color: #00ccff; font-size: 24px;"></i>
+                    </button>
+                    <span class="more-options">⋮</span>
+                </h3>
+                <div class="info-nutricional">
+                    <span>643 kcal</span>
+                    <span>35 P</span>
+                    <span>74 C</span>
+                    <span>24 G</span>
+                </div>
+                <div class="add-food">
+                    <span>+</span>
+                </div>
+                <div class="button-container">
+                    <button class="change-recipe-button">Crear Receta</button>
+                    <button class="menu-button">Añadir Receta</button>
+                </div>
+            </div>
+            <div class="meal">
+                <h3>Almuerzo 
+                    <div class="circle-container">
+                        <button class="circle-button" onclick="toggleCircle(this)"></button>
+                    </div>
+                    <button class="change-recipe-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-exchange-alt" style="color: #ffcc00; font-size: 24px;"></i>
+                    </button>
+                    <button class="menu-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-bars" style="color: #00ccff; font-size: 24px;"></i>
+                    </button>
+                    <span class="more-options">⋮</span>
+                </h3>
+                <div class="info-nutricional">
+                    <span>643 kcal</span>
+                    <span>35 P</span>
+                    <span>74 C</span>
+                    <span>24 G</span>
+                </div>
+                <div class="add-food">
+                    <span>+</span>
+                </div>
+                <div class="button-container">
+                    <button class="change-recipe-button">Crear Receta</button>
+                    <button class="menu-button">Añadir Receta</button>
+                </div>
+            </div>
+            <div class="meal">
+                <h3>Media Tarde 
+                    <div class="circle-container">
+                        <button class="circle-button" onclick="toggleCircle(this)"></button>
+                    </div>
+                    <button class="change-recipe-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-exchange-alt" style="color: #ffcc00; font-size: 24px;"></i>
+                    </button>
+                    <button class="menu-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-bars" style="color: #00ccff; font-size: 24px;"></i>
+                    </button>
+                    <span class="more-options">⋮</span>
+                </h3>
+                <div class="info-nutricional">
+                    <span>643 kcal</span>
+                    <span>35 P</span>
+                    <span>74 C</span>
+                    <span>24 G</span>
+                </div>
+                <div class="add-food">
+                    <span>+</span>
+                </div>
+                <div class="button-container">
+                    <button class="change-recipe-button">Crear Receta</button>
+                    <button class="menu-button">Añadir Receta</button>
+                </div>
+            </div>
+            <div class="meal">
+                <h3>Cena 
+                    <div class="circle-container">
+                        <button class="circle-button" onclick="toggleCircle(this)"></button>
+                    </div>
+                    <button class="change-recipe-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-exchange-alt" style="color: #ffcc00; font-size: 24px;"></i>
+                    </button>
+                    <button class="menu-button" style="background-color: transparent; border: none;">
+                        <i class="fas fa-bars" style="color: #00ccff; font-size: 24px;"></i>
+                    </button>
+                    <span class="more-options">⋮</span>
+                </h3>
+                <div class="info-nutricional">
+                    <span>643 kcal</span>
+                    <span>35 P</span>
+                    <span>74 C</span>
+                    <span>24 G</span>
+                </div>
+                <div class="add-food">
+                    <span>+</span>
+                </div>
+                                <div class="button-container">
+                    <button class="change-recipe-button">Crear Receta</button>
+                    <button class="menu-button">Añadir Receta</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de consumo de agua -->
+        <div class="meal">
+            <div class="header">
+                <h3>Agua</h3>
+                <div class="info-button">
+                    <i class="info-icon">i</i>
+                </div>
+                <span class="more-options">⋮</span>
+            </div>
+            <div class="status">0/2.8 L</div>
+            <div class="water-intake">
+                <div class="cups">
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                    <div class="cup" onclick="fillCup(this)"><div class="filled"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 100px;"></div>
+    <div class="footer">
+        <div>
+            <div class="footer-icon">🏠</div>
+            <div class="footer-text">Plan</div>
+        </div>
+        <div>
+            <div class="footer-icon">📖</div>
+            <div class="footer-text">Base Datos</div>
+        </div>
+        <div>
+            <div class="footer-icon">👨‍🍳</div>
+            <div class="footer-text">Recetas</div>
+        </div>
+        <div>
+            <div class="footer-icon">👥</div>
+            <div class="footer-text">Teams</div>
+        </div>
+        <div>
+            <div class="footer-icon">📈</div>
+            <div class="footer-text">Progreso</div>
+        </div>
+    </div>
+
+    <button class="floating-button" aria-label="Atajos">+</button>
+    <div class="shortcut-bar hidden">
+        <div>
+            <div class="footer-icon">⚙️</div>
+            <div class="footer-text">Configurar Nutrición</div>
+        </div>
+        <div>
+            <div class="footer-icon">📈</div>
+            <div class="footer-text">Registra tu Progreso</div>
+        </div>
+        <div>
+            <div class="footer-icon">⏰</div>
+            <div class="footer-text">Configuración de Recordatorios</div>
+        </div>
+        <div>
+            <div class="footer-icon">🛒</div>
+            <div class="footer-text">Lista de Compras</div>
+        </div>
+        <div>
+            <div class="footer-icon">👨‍🍳</div>
+            <div class="footer-text">Crear Receta</div>
+        </div>
+        <div>
+            <div class="footer-icon">🔥</div>
+            <div class="footer-text">Configurar Calorías</div>
+        </div>
+        <div>
+            <div class="footer-icon">🍴</div>
+            <div class="footer-text">Configurar Macros</div>
+        </div>
+        <div>
+            <div class="footer-icon">💧</div>
+            <div class="footer-text">Configurar Agua</div>
+        </div>
+        <div>
+            <div class="footer-icon">🍽️</div>
+            <div class="footer-text">Número de Comidas</div>
+        </div>
+        <div>
+            <div class="footer-icon">🔄</div>
+            <div class="footer-text">Sincronizar Plan</div>
+        </div>
+    </div>
+    
+    <!-- Modal de Notificaciones -->
+<div class="notification-modal" id="notificationModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Mensajes</h2>
+            <button class="close-button" onclick="closeNotificationModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <ul id="messageList">
+                <!-- Mensajes de ejemplo -->
+                <li>Mensaje 1: Actualización de la app disponible.</li>
+                <li>Mensaje 2: Nueva receta añadida.</li>
+                <li>Mensaje 3: Mantenimiento programado para el 25 de mayo.</li>
+            </ul>                        
+        </div>
+    </div>
+</div>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
+    <script>
+        // Inicializar Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBAyn2xWuA8kv0w0WcqFdkBMHMNf2IBq00",
+            authDomain: "calculadora-nutricional-ff61e.firebaseapp.com",
+            projectId: "calculadora-nutricional-ff61e",
+            storageBucket: "calculadora-nutricional-ff61e.appspot.com",
+            messagingSenderId: "60353169945",
+            appId: "1:60353169945:web:ce1679f2b57d0fded97888"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Obtener la instancia de Messaging
+        const messaging = firebase.messaging();
+
+        // Solicitar permiso para enviar notificaciones
+        messaging.requestPermission().then(() => {
+            console.log('Permiso concedido');
+            return messaging.getToken();
+        }).then(token => {
+            console.log('Token de FCM:', token);
+            // Guarda el token en tu servidor
+        }).catch(err => {
+            console.error('Error al obtener permiso de notificación', err);
+        });
+
+        // Manejar la recepción de mensajes
+        messaging.onMessage(payload => {
+            console.log('Mensaje recibido:', payload);
+            showInAppNotification(payload.notification.title, payload.notification.body);
+        });
+    </script>
+</body>
+  </html>
