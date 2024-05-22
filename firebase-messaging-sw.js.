@@ -1,0 +1,23 @@
+importScripts('https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js');
+
+firebase.initializeApp({
+    apiKey: "AIzaSyBAyn2xWuA8kv0w0WcqFdkBMHMNf2IBq00",
+    authDomain: "calculadora-nutricional-ff61e.firebaseapp.com",
+    projectId: "calculadora-nutricional-ff61e",
+    storageBucket: "calculadora-nutricional-ff61e.appspot.com",
+    messagingSenderId: "60353169945",
+    appId: "1:60353169945:web:ce1679f2b57d0fded97888"
+});
+
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage(payload => {
+    console.log('Mensaje en segundo plano recibido:', payload);
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+        body: payload.notification.body,
+    };
+
+    self.registration.showNotification(notificationTitle, notificationOptions);
+});
