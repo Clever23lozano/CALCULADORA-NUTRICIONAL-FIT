@@ -1,23 +1,30 @@
-importScripts('https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js');
 
-firebase.initializeApp({
+// Configuración de Firebase
+const firebaseConfig = {
     apiKey: "AIzaSyBAyn2xWuA8kv0w0WcqFdkBMHMNf2IBq00",
     authDomain: "calculadora-nutricional-ff61e.firebaseapp.com",
     projectId: "calculadora-nutricional-ff61e",
     storageBucket: "calculadora-nutricional-ff61e.appspot.com",
     messagingSenderId: "60353169945",
     appId: "1:60353169945:web:ce1679f2b57d0fded97888"
-});
+};
 
+// Inicializa Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Inicializa Firebase Cloud Messaging
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(payload => {
-    console.log('Mensaje en segundo plano recibido:', payload);
+// Manejo de notificaciones en segundo plano
+messaging.setBackgroundMessageHandler(function(payload) {
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
         body: payload.notification.body,
+        icon: payload.notification.icon
     };
 
-    self.registration.showNotification(notificationTitle, notificationOptions);
+    return self.registration.showNotification(notificationTitle, notificationOptions);
 });
