@@ -1091,16 +1091,6 @@
 </div>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
-
-    <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/firebase-messaging-sw.js')
-        .then((registration) => {
-            console.log('Service Worker registrado con éxito:', registration);
-        }).catch((err) => {
-            console.log('Error al registrar el Service Worker:', err);
-        });
-    }
     <script>
         // Inicializar Firebase
         const firebaseConfig = {
@@ -1134,4 +1124,4 @@
         });
     </script>
 </body>
-  </html>
+    </html>
